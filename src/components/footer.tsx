@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Phone, Mail, MapPin } from "lucide-react"
+import Link from "next/link";
+import { Phone, Mail, MapPin, HeartHandshake } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,12 +9,10 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-full btn-gold">
-                <span className="text-sm font-semibold">
-                  {"สศ"}
-                </span>
+                <HeartHandshake className="text-foreground" />
               </div>
               <span className="text-lg font-semibold text-foreground">
-                สุขสันต์ พิธีกรรม
+                งานศพพลัส+
               </span>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -23,9 +21,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-foreground">
-              เมนู
-            </h4>
+            <h4 className="mb-3 text-sm font-semibold text-foreground">เมนู</h4>
             <ul className="flex flex-col gap-2">
               {[
                 { href: "/packages", label: "แพ็คเกจ" },
@@ -59,15 +55,17 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
-                <span>123 ถ.สุขุมวิท แขวงคลองตัน เขตคลองเตย กรุงเทพฯ 10110</span>
+                <span>
+                  123 ถ.สุขุมวิท แขวงคลองตัน เขตคลองเตย กรุงเทพฯ 10110
+                </span>
               </li>
             </ul>
           </div>
         </div>
         <div className="mt-10 border-t border-border pt-6 text-center text-xs text-muted-foreground">
-          <p>{"สุขสันต์ พิธีกรรม - บริการจัดงานศพครบวงจร"}</p>
+          <p>{"งานศพพลัส+ บริการจัดงานศพครบวงจร"}</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

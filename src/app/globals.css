@@ -53,6 +53,8 @@
   --gold-from: #b8860b;
   --gold-via: #daa520;
   --gold-to: #cd9b1d;
+
+  --font-prompt: var(--font-prompt);
 }
 
 /* Base Styles */

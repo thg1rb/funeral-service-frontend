@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th" className={prompt.variable}>
-      <body className="font-sans antialiased">
+      <body className="font-prompt antialiased">
         <Navbar />
         {children}
         <Footer />
