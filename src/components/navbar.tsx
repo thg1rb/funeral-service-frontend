@@ -10,7 +10,7 @@ import { cn } from "../utils/utils";
 const navLinks = [
   { href: "/", label: "หน้าแรก" },
   { href: "/packages", label: "แพ็คเกจ" },
-  { href: "/blog", label: "บทความ" },
+  { href: "/blogs", label: "บทความ" },
 ];
 
 export function Navbar() {
