@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
-import { BlogPost } from "@/src/types/types";
+import { BlogPost } from "@/src/types";
 import { Button } from "antd";
 import { formatDate } from "@/src/utils/format";
 

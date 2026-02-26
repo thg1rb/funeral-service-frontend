@@ -1,6 +1,25 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { BlogList } from "./components/blog-list";
+import { blogService } from "@/src/data/services/blogService";
+import { BlogPost } from "@/src/types";
 
 export default function BlogListPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [activeCategory, setActiveCategory] = useState("ทั้งหมด");
+
+  useEffect(() => {
+    blogService.init();
+    const data = blogService.getAll();
+    setPosts(data);
+  }, []);
+
+  const filtered =
+    activeCategory === "ทั้งหมด"
+      ? posts
+      : posts.filter((p) => p.category === activeCategory);
+
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
@@ -12,7 +31,11 @@ export default function BlogListPage() {
             ความรู้ ประสบการณ์ และบทความที่เป็นกำลังใจ
           </p>
         </div>
-        <BlogList />
+        <BlogList
+          posts={filtered}
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+        />
       </div>
     </main>
   );

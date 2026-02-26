@@ -1,23 +1,25 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { PenLine, BookOpen, Calendar, User } from "lucide-react";
-import { blogPosts } from "@/src/data/mock-data";
 import { Button } from "antd";
 import { formatDate } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
+import { BlogPost } from "@/src/types";
 
 const categories = ["ทั้งหมด", "ความรู้", "แนะนำ", "สุขภาพจิต", "สัตว์เลี้ยง"];
 
-export function BlogList() {
-  const [activeCategory, setActiveCategory] = useState("ทั้งหมด");
+interface BlogListProps {
+  posts: BlogPost[];
+  activeCategory: string;
+  onCategoryChange: (category: string) => void;
+}
 
-  const filtered =
-    activeCategory === "ทั้งหมด"
-      ? blogPosts
-      : blogPosts.filter((p) => p.category === activeCategory);
-
+export function BlogList({
+  posts,
+  activeCategory,
+  onCategoryChange,
+}: BlogListProps) {
   return (
     <div className="mt-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -26,7 +28,7 @@ export function BlogList() {
             <button
               key={cat}
               type="button"
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => onCategoryChange(cat)}
               className={cn(
                 "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
                 activeCategory === cat
@@ -47,7 +49,7 @@ export function BlogList() {
       </div>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {filtered.map((post) => (
+        {posts.map((post) => (
           <Link
             key={post.id}
             href={`/blogs/${post.id}`}
