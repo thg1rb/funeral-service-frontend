@@ -100,7 +100,7 @@ export function FuneralTypeSelection() {
       {selected && (
         <div className="mt-8 text-center">
           <Link href={`/packages?type=${selected}`}>
-            <Button className="gap-2">
+            <Button className="gap-2 btn-gold!">
               ดำเนินการต่อ
               <span className="text-sm">
                 {"("}

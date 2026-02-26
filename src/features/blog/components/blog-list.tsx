@@ -39,7 +39,7 @@ export function BlogList() {
           ))}
         </div>
         <Link href="/blog/create">
-          <Button className="gap-2 bg-transparent">
+          <Button className="btn-gold! gap-2 bg-transparent">
             <PenLine className="h-4 w-4" />
             เขียนบทความ
           </Button>
@@ -50,7 +50,7 @@ export function BlogList() {
         {filtered.map((post) => (
           <Link
             key={post.id}
-            href={`/blog/${post.id}`}
+            href={`/blogs/${post.id}`}
             className="group rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-md"
           >
             <div className="flex h-48 items-center justify-center rounded-t-lg bg-muted">
