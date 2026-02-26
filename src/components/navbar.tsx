@@ -9,7 +9,6 @@ import { cn } from "../utils/utils";
 
 const navLinks = [
   { href: "/", label: "หน้าแรก" },
-  { href: "/packages", label: "แพ็คเกจ" },
   { href: "/blogs", label: "บทความ" },
 ];
 
