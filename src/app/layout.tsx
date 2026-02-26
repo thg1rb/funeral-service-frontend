@@ -3,12 +3,8 @@ import { Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import AntProvider from "./ant-provider";
 
-const prompt = Noto_Sans_Thai({
-  subsets: ['thai', 'latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-thai',
-})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,11 +17,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="th" className={prompt.variable}>
-      <body className="font-thai antialiased">
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="th" >
+      <body>
+        <AntProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AntProvider>
       </body>
     </html>
   )
