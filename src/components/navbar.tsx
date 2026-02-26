@@ -48,7 +48,7 @@ export function Navbar() {
         </ul>
 
         <div className="hidden md:block">
-          <Button>ติดต่อเรา</Button>
+          <Button className="btn-gold!">ติดต่อเรา</Button>
         </div>
 
         {/* Mobile toggle */}
@@ -87,7 +87,7 @@ export function Navbar() {
               </li>
             ))}
             <li className="pt-2">
-              <Button className="w-full">ติดต่อเรา</Button>
+              <Button className="w-full btn-gold!">ติดต่อเรา</Button>
             </li>
           </ul>
         </div>

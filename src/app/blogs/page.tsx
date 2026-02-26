@@ -1,3 +1,3 @@
-import BlogPage from "@/src/features/blog/blog-list-view";
+import BlogListPage from "@/src/features/blog/blog-list-view";
 
-export default BlogPage;
+export default BlogListPage;

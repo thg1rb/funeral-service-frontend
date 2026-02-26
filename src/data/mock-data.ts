@@ -3,7 +3,7 @@ import type {
   FuneralPackage,
   FuneralVenue,
   BlogPost,
-} from "./types";
+} from "../types/types";
 
 export const decorationItems: DecorationItem[] = [
   // Coffins
