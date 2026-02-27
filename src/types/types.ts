@@ -81,4 +81,4 @@ export interface CustomerDetails {
   address?: string;
 }
 
-export type PaymentMethod = "cash" | "transfer" | "credit_card";
+export type PaymentMethod = "bank_transfer" | "qr_code" | "credit_card";
