@@ -3,6 +3,7 @@
 import { DecorationItem, SelectedItem } from "@/src/types/types";
 import { formatPrice } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
+import { Pagination } from "antd";
 import { Check, Plus, Minus } from "lucide-react";
 
 interface CategoryPanelProps {
@@ -133,6 +134,14 @@ export function CategoryPanel({
           </div>
         );
       })}
+      <div className="col-span-2">
+        <Pagination
+          align="center"
+          defaultCurrent={1}
+          total={500} // TODO: Change from hard-coded
+          showSizeChanger={false}
+        />
+      </div>
     </div>
   );
 }
