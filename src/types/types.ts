@@ -48,9 +48,13 @@ export interface OrderSummary {
   funeralType: FuneralType;
   packageName: string | null;
   items: SelectedItem[];
+  extraServices: ExtraService[];
   totalPrice: number;
   venue: FuneralVenue | null;
-  date: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  customerDetails: CustomerDetails | null;
+  paymentMethod: PaymentMethod | null;
 }
 
 export const CATEGORY_LABELS: Record<ItemCategory, string> = {
@@ -60,3 +64,21 @@ export const CATEGORY_LABELS: Record<ItemCategory, string> = {
   table: "โต๊ะพิธี",
   equipment: "อุปกรณ์พิธีกรรม",
 };
+
+export interface ExtraService {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  icon: string;
+  funeralType: FuneralType | "both";
+}
+
+export interface CustomerDetails {
+  name: string;
+  phone: string;
+  email?: string;
+  address?: string;
+}
+
+export type PaymentMethod = "cash" | "transfer" | "credit_card";
