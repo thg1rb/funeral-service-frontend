@@ -81,7 +81,7 @@ export function PackageCard({ pkg }: PackageCardProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Link href={`/summary?package=${pkg.id}`}>
+        <Link href={`/extra-services?package=${pkg.id}`}>
           <Button className="w-full">เลือกแพ็คเกจนี้</Button>
         </Link>
         <Link href={`/customize?package=${pkg.id}`}>

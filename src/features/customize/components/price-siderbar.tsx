@@ -128,9 +128,9 @@ export function PriceSidebar({
         </div>
 
         <div className="mt-4 flex flex-col gap-2">
-          <Link href="/summary?custom=true">
+          <Link href="/extra-services?package=${pkg.id}">
             <Button className="w-full" disabled={selectedItems.length === 0}>
-              ยืนยันรายการ
+              ไปบริการเสริม
             </Button>
           </Link>
           <Link href="/packages">

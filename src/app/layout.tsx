@@ -4,7 +4,7 @@ import "./globals.css";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import AntProvider from "./ant-provider";
-
+import { OrderProvider } from "../hooks/order-context";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,12 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" >
+    <html lang="th">
       <body>
         <AntProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <OrderProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </OrderProvider>
         </AntProvider>
       </body>
     </html>
