@@ -19,6 +19,10 @@ const AntProvider = ({ children }: Props) => {
 
           borderRadius: 8,
           colorBorder: 'var(--color-border)',
+
+          controlOutline: 'rgba(184, 134, 11, 0.15)',
+          controlOutlineWidth: 2,
+          colorErrorOutline: 'rgba(255, 77, 79, 0.1)',
         },
         components: {
           Table: {
@@ -31,7 +35,16 @@ const AntProvider = ({ children }: Props) => {
           Button: {
             borderRadius: 6,
             controlHeight: 40,
-          }
+          },
+          Select: {
+            optionSelectedBg: '#2a2e35',
+            optionActiveBg: '#333842',
+
+            optionSelectedColor: '#b8860b',
+
+            colorBorder: 'var(--color-border)',
+            colorPrimaryHover: '#b8860b',
+          },
         },
       }}
     >
