@@ -1,8 +1,9 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Button, Input, Modal, Select } from "antd";
 import { Space } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { PartnerStatus, PartnerType } from "../types/enum";
-import { Partner } from "../types/partner";
+import { Partner, PartnerCreate, PartnerUpdate } from "../types/partner";
 import { createPartner } from "../services/create-partner";
 import { useEffect } from "react";
 import { updatePartner } from "../services/update-partner";
@@ -28,7 +29,8 @@ export default function PartnerModal(props: PartnerModalProps) {
   });
 
   const onSubmit = (data: IFormInput) => {
-    const newPartner: Partner = {
+    const newPartner: PartnerCreate = {
+      id: uuidv4(),
       name: data.partnerName,
       type: data.type,
       category: data.category,
@@ -42,7 +44,16 @@ export default function PartnerModal(props: PartnerModalProps) {
       props.fetchPartner()
       props.handleOk()
     } else {
-      updatePartner(newPartner)
+      const newPartner: PartnerUpdate = {
+        name: data.partnerName,
+        type: data.type,
+        category: data.category,
+        ownerName: data.ownerName,
+        ownerTel: data.ownerTel,
+        address: data.address,
+        status: PartnerStatus.ACTIVE,
+      }
+      updatePartner(newPartner, props.partner.id)
       props.fetchPartner()
       props.handleOk()
     }

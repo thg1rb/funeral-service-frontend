@@ -1,15 +1,15 @@
 import { KEY } from "../data/constants"
 import { partners } from "../data/partners"
 import { PartnerStatus } from "../types/enum"
-import { Partner } from "../types/partner"
+import { Partner, PartnerUpdate } from "../types/partner"
 
-export const updatePartner = (newPartner: Partner) => {
+export const updatePartner = (newPartner: PartnerUpdate, id: string) => {
   const res = localStorage.getItem(KEY)
   let data = partners
   if (res !== null) {
     data = JSON.parse(res)
   }
-  const targetData: Partner | undefined = data.find((element) => element.name === newPartner.name)
+  const targetData: Partner | undefined = data.find((element) => element.id === id)
   if (targetData !== undefined) {
     targetData.address = newPartner.address
     targetData.name = newPartner.name
