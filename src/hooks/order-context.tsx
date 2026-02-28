@@ -16,7 +16,7 @@ import type {
   SelectedItem,
   FuneralVenue,
   OrderSummary,
-} from "./types"
+} from "@/src/types/types"
 
 interface OrderContextType {
   order: OrderSummary

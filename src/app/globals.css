@@ -90,3 +90,18 @@
     filter: brightness(1.1);
   }
 }
+
+/* Show only 1 calendar for RangePicker */
+.responsive-range-picker .ant-picker-panel:last-child {
+  display: none !important;
+}
+
+/* Show next-month arrow on first panel */
+.responsive-range-picker .ant-picker-panel:first-child .ant-picker-header-next-btn {
+  visibility: visible !important;
+}
+
+/* Show super-next (year) arrow on first panel */
+.responsive-range-picker .ant-picker-panel:first-child .ant-picker-header-super-next-btn {
+  visibility: visible !important;
+}
