@@ -64,7 +64,7 @@ export function PaymentOptions() {
     if (!selectedMethod) return;
     setIsProcessing(true);
     setTimeout(() => {
-      router.push("/done");
+      router.push("/completed");
     }, 2000);
   };
 
