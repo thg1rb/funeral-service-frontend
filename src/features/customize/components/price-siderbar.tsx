@@ -11,6 +11,7 @@ interface PriceSidebarProps {
   totalPrice: number;
   onRemove: (itemId: string) => void;
   onUpdateQuantity: (itemId: string, quantity: number) => void;
+  packageId?: string | null;
 }
 
 export function PriceSidebar({
@@ -18,6 +19,7 @@ export function PriceSidebar({
   totalPrice,
   onRemove,
   onUpdateQuantity,
+  packageId,
 }: PriceSidebarProps) {
   const totalItemCount = selectedItems.reduce(
     (sum, si) => sum + si.quantity,
@@ -128,7 +130,7 @@ export function PriceSidebar({
         </div>
 
         <div className="mt-4 flex flex-col gap-2">
-          <Link href="/extra-services?package=${pkg.id}">
+          <Link href={packageId ? `/extra-services?package=${packageId}` : "/extra-services"}>
             <Button className="w-full" disabled={selectedItems.length === 0}>
               ไปบริการเสริม
             </Button>

@@ -57,7 +57,7 @@ export function VenueCard({ venue, isSelected, onSelect }: VenueCardProps) {
           {isSelected ? "เลือกแล้ว" : "เลือกสถานที่นี้"}
         </Button>
         {isSelected && (
-          <Link href="/schedule">
+          <Link href={`/schedule?venue=${venue.id}`}>
             <Button>เลือกวัน</Button>
           </Link>
         )}

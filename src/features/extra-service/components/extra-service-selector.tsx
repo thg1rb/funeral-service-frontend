@@ -18,11 +18,12 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { useOrder } from "@/src/hooks/order-context"
-import { extraServices } from "@/src/data/mock-data"
+import { extraServices, funeralPackages } from "@/src/data/mock-data"
 import { ExtraService } from "@/src/types"
 import { cn } from "@/src/utils/utils"
 import { Button } from "antd"
 import { formatPrice } from "@/src/utils/format"
+import { useEffect } from "react"
 
 const iconMap: Record<string, React.ElementType> = {
   camera: Camera,
@@ -41,8 +42,20 @@ export function ExtraServicesSelector() {
   const packageId = searchParams.get("package")
   const custom = searchParams.get("custom")
 
-  const { order, toggleExtraService } = useOrder()
-  const { funeralType, extraServices: selectedServices } = order
+  const { order, toggleExtraService, setItems, setPackageName } = useOrder()
+  const { funeralType, extraServices: selectedServices, items } = order
+
+  // Load package items when navigating from package selection
+  useEffect(() => {
+    if (packageId && items.length === 0) {
+      const pkg = funeralPackages.find((p) => p.id === packageId)
+      if (pkg) {
+        const packageItems = pkg.items.map((item) => ({ item, quantity: 1 }))
+        setItems(packageItems)
+        setPackageName(pkg.name)
+      }
+    }
+  }, [packageId, items.length, setItems, setPackageName])
 
   // Show only services for the current funeral type (human or pet), plus "both"
   const filtered = extraServices.filter(

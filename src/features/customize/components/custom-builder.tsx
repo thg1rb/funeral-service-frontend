@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   CATEGORY_LABELS,
@@ -12,6 +12,7 @@ import { decorationItems, funeralPackages } from "@/src/data/mock-data";
 import { cn } from "@/src/utils/utils";
 import { CategoryPanel } from "./category-panel";
 import { PriceSidebar } from "./price-siderbar";
+import { useOrder } from "@/src/hooks/order-context";
 
 const categories: ItemCategory[] = [
   "coffin",
@@ -25,6 +26,8 @@ export function CustomBuilder() {
   const searchParams = useSearchParams();
   const packageId = searchParams.get("package");
 
+  const { setItems, setPackageName, items: orderItems } = useOrder();
+
   const initialItems: SelectedItem[] = useMemo(() => {
     if (packageId) {
       const pkg = funeralPackages.find((p) => p.id === packageId);
@@ -36,6 +39,17 @@ export function CustomBuilder() {
   const [selectedItems, setSelectedItems] =
     useState<SelectedItem[]>(initialItems);
   const [activeCategory, setActiveCategory] = useState<ItemCategory>("coffin");
+
+  // Sync package items to order context
+  useEffect(() => {
+    if (packageId) {
+      const pkg = funeralPackages.find((p) => p.id === packageId);
+      if (pkg) {
+        setItems(selectedItems);
+        setPackageName(pkg.name);
+      }
+    }
+  }, [packageId, selectedItems, setItems, setPackageName]);
 
   const totalPrice = selectedItems.reduce(
     (sum, si) => sum + si.item.price * si.quantity,
@@ -121,6 +135,7 @@ export function CustomBuilder() {
         totalPrice={totalPrice}
         onRemove={removeItem}
         onUpdateQuantity={updateQuantity}
+        packageId={packageId}
       />
     </div>
   );

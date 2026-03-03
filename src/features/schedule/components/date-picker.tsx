@@ -1,19 +1,32 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { CalendarDays, Check, AlertCircle, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { DatePicker as AntDatePicker, Button } from "antd"
 import dayjs, { Dayjs } from "dayjs"
-import { unavailableDates } from "@/src/data/mock-data"
+import { unavailableDates, funeralVenues } from "@/src/data/mock-data"
 import { useOrder } from "@/src/hooks/order-context"
 import { formatDate, diffDays } from "@/src/utils/format"
 
 const { RangePicker } = AntDatePicker
 
 export function DatePicker() {
-  const { setDateRange } = useOrder()
+  const searchParams = useSearchParams()
+  const venueId = searchParams.get("venue")
+  const { setDateRange, setVenue, venue } = useOrder()
   const [dates, setDates] = useState<[Dayjs, Dayjs] | null>(null)
+
+  // Load venue from URL parameter if not already set
+  useEffect(() => {
+    if (venueId && !venue) {
+      const foundVenue = funeralVenues.find((v) => v.id === venueId)
+      if (foundVenue) {
+        setVenue(foundVenue)
+      }
+    }
+  }, [venueId, venue, setVenue])
 
   // Convert unavailable dates to dayjs format for disabled dates
   const disabledDates = unavailableDates.map((d) => dayjs(d).format("YYYY-MM-DD"))

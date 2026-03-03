@@ -1,11 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VenueCard } from "./venue-card";
 import { funeralVenues } from "@/src/data/mock-data";
+import { useOrder } from "@/src/hooks/order-context";
 
 export function LocationList() {
   const [selectedVenueId, setSelectedVenueId] = useState<string | null>(null);
+  const { setVenue } = useOrder();
+
+  // Save selected venue to order context
+  useEffect(() => {
+    if (selectedVenueId) {
+      const venue = funeralVenues.find((v) => v.id === selectedVenueId);
+      if (venue) {
+        setVenue(venue);
+      }
+    }
+  }, [selectedVenueId, setVenue]);
 
   const sortedVenues = [...funeralVenues].sort(
     (a, b) => a.distance - b.distance,
