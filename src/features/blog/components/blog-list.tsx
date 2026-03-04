@@ -5,7 +5,7 @@ import { PenLine, BookOpen, Calendar, User } from "lucide-react";
 import { Button } from "antd";
 import { formatDate } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
-import { BlogPost } from "@/src/types";
+import { BlogPost } from "../types/blog";
 
 const categories = ["ทั้งหมด", "ความรู้", "แนะนำ", "สุขภาพจิต", "สัตว์เลี้ยง"];
 

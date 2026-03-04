@@ -1,5 +1,6 @@
 import type {
   DecorationItem,
+  ExtraService,
   FuneralPackage,
   FuneralVenue,
 } from "../types/types";

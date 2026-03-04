@@ -1,6 +1,6 @@
-import { BlogPost } from "@/src/types";
-import { INITIAL_BLOGS } from "../constants/blogs";
-import { storageService } from "./storageService";
+import { BlogPost } from "../types/blog";
+import { storageService } from "@/src/data/services/storageService";
+import { INITIAL_BLOGS } from "./blog";
 
 const KEY = "funeral_blogs";
 

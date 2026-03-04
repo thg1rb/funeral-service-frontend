@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Loader2, FileX, ArrowLeft } from "lucide-react";
 import { Button } from "antd";
 import { BlogDetail } from "./components/blog-detail";
-import { blogService } from "@/src/data/services/blogService";
-import { BlogPost } from "@/src/types";
+import { BlogPost } from "./types/blog";
+import { blogService } from "./data/service";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -51,9 +51,7 @@ export default function BlogDetailPage({ params }: Props) {
         <div className="text-center space-y-6 px-4">
           <FileX className="h-20 w-20 mx-auto text-muted-foreground/50" />
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-foreground">
-              ไม่พบบทความ
-            </h1>
+            <h1 className="text-3xl font-bold text-foreground">ไม่พบบทความ</h1>
             <p className="text-lg text-muted-foreground max-w-md">
               บทความที่คุณค้นหาไม่มีอยู่หรือถูกลบแล้ว
             </p>

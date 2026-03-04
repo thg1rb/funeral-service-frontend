@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { BlogList } from "./components/blog-list";
-import { blogService } from "@/src/data/services/blogService";
-import { BlogPost } from "@/src/types";
+import { blogService } from "./data/service";
+import { BlogPost } from "./types/blog";
 
 export default function BlogListPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
