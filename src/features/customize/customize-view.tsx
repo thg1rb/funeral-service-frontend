@@ -5,7 +5,7 @@ import { CustomBuilder } from "./components/custom-builder";
 export default function CustomizePage() {
   return (
     <main className="min-h-screen">
-      <StepIndicator currentStep={2} />
+      <StepIndicator currentStep={1} />
       <div className="mx-auto max-w-7xl px-4 pb-16 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-balance text-3xl font-bold text-foreground">

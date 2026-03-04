@@ -9,12 +9,11 @@ interface Step {
 const steps: Step[] = [
   { label: "เลือกประเภท", href: "/" },
   { label: "เลือกแพ็คเกจ", href: "/packages" },
-  { label: "ปรับแต่ง", href: "/customize" },
   { label: "บริการเสริม", href: "/extra-services" },
   { label: "เลือกสถานที่", href: "/locations" },
   { label: "เลือกวัน", href: "/schedule" },
-  { label: "สรุปราคา", href: "/summary" },
   { label: "ข้อมูลลูกค้า", href: "/customer" },
+  { label: "สรุปราคา", href: "/summary" },
   { label: "ชำระค่าบริการ", href: "/payment" },
 ];
 
