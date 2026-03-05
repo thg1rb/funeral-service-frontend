@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
+import { useEffect } from "react"
 import {
   Camera,
   Car,
@@ -18,13 +19,12 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { useOrder } from "@/src/hooks/order-context"
-import { extraServices } from "@/src/data/mock-data"
 import { ExtraService } from "@/src/types"
+import { extraService } from "@/src/features/extra-service/data/services/extra-service"
 import { packageService } from "@/src/features/package/data/services/package"
 import { cn } from "@/src/utils/utils"
 import { Button } from "antd"
 import { formatPrice } from "@/src/utils/format"
-import { useEffect } from "react"
 
 const iconMap: Record<string, React.ElementType> = {
   camera: Camera,
@@ -46,6 +46,11 @@ export function ExtraServicesSelector() {
   const { order, toggleExtraService, setItems, setPackageName } = useOrder()
   const { funeralType, extraServices: selectedServices, items } = order
 
+  // Initialize extra service
+  useEffect(() => {
+    extraService.init()
+  }, [])
+
   // Load package items when navigating from package selection
   useEffect(() => {
     if (packageId && items.length === 0) {
@@ -59,9 +64,7 @@ export function ExtraServicesSelector() {
   }, [packageId, items.length, setItems, setPackageName])
 
   // Show only services for the current funeral type (human or pet), plus "both"
-  const filtered = extraServices.filter(
-    (s) => s.funeralType === funeralType || s.funeralType === "both"
-  )
+  const filtered = extraService.getByFuneralType(funeralType)
 
   // Remove any stale selections that belong to the wrong type
   const validSelectedServices = selectedServices.filter(
