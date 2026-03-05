@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { PackageCard } from "./package-card";
 import { FuneralType } from "@/src/types/types";
-import { funeralPackages } from "@/src/data/mock-data";
+import { packageService } from "../data/services/package";
 
 export function PackageList() {
   const searchParams = useSearchParams();
@@ -13,9 +13,11 @@ export function PackageList() {
     typeParam ?? "human",
   );
 
-  const filtered = funeralPackages.filter(
-    (pkg) => pkg.funeralType === activeType,
-  );
+  useEffect(() => {
+    packageService.init();
+  }, []);
+
+  const filtered = packageService.getByFuneralType(activeType);
 
   return (
     <div className="mt-10">
