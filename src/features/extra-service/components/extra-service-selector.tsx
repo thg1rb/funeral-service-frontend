@@ -18,8 +18,9 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { useOrder } from "@/src/hooks/order-context"
-import { extraServices, funeralPackages } from "@/src/data/mock-data"
+import { extraServices } from "@/src/data/mock-data"
 import { ExtraService } from "@/src/types"
+import { packageService } from "@/src/features/package/data/services/package"
 import { cn } from "@/src/utils/utils"
 import { Button } from "antd"
 import { formatPrice } from "@/src/utils/format"
@@ -48,7 +49,7 @@ export function ExtraServicesSelector() {
   // Load package items when navigating from package selection
   useEffect(() => {
     if (packageId && items.length === 0) {
-      const pkg = funeralPackages.find((p) => p.id === packageId)
+      const pkg = packageService.getById(packageId)
       if (pkg) {
         const packageItems = pkg.items.map((item) => ({ item, quantity: 1 }))
         setItems(packageItems)

@@ -8,7 +8,8 @@ import {
   ItemCategory,
   SelectedItem,
 } from "@/src/types/types";
-import { decorationItems, funeralPackages } from "@/src/data/mock-data";
+import { decorationItems } from "@/src/data/mock-data";
+import { packageService } from "@/src/features/package/data/services/package";
 import { cn } from "@/src/utils/utils";
 import { CategoryPanel } from "./category-panel";
 import { PriceSidebar } from "./price-siderbar";
@@ -30,7 +31,7 @@ export function CustomBuilder() {
 
   const initialItems: SelectedItem[] = useMemo(() => {
     if (packageId) {
-      const pkg = funeralPackages.find((p) => p.id === packageId);
+      const pkg = packageService.getById(packageId);
       return (pkg?.items ?? []).map((item) => ({ item, quantity: 1 }));
     }
     return [];
@@ -43,7 +44,7 @@ export function CustomBuilder() {
   // Sync package items to order context
   useEffect(() => {
     if (packageId) {
-      const pkg = funeralPackages.find((p) => p.id === packageId);
+      const pkg = packageService.getById(packageId);
       if (pkg) {
         setItems(selectedItems);
         setPackageName(pkg.name);

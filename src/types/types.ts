@@ -23,13 +23,18 @@ export type ItemCategory =
   | "table"
   | "equipment";
 
+export interface PackageItemRef {
+  id: string;
+  quantity?: number;
+}
+
 export interface FuneralPackage {
   id: string;
   name: string;
   tier: "basic" | "standard" | "premium";
   price: number;
   description: string;
-  items: DecorationItem[];
+  items: PackageItemRef[];
   funeralType: FuneralType;
 }
 
