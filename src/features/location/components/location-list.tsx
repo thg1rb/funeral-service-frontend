@@ -2,24 +2,29 @@
 
 import { useState, useEffect } from "react";
 import { VenueCard } from "./venue-card";
-import { funeralVenues } from "@/src/data/mock-data";
 import { useOrder } from "@/src/hooks/order-context";
+import { locationService } from "@/src/features/location/data/services/location";
 
 export function LocationList() {
   const [selectedVenueId, setSelectedVenueId] = useState<string | null>(null);
   const { setVenue } = useOrder();
 
+  // Initialize location service
+  useEffect(() => {
+    locationService.init();
+  }, []);
+
   // Save selected venue to order context
   useEffect(() => {
     if (selectedVenueId) {
-      const venue = funeralVenues.find((v) => v.id === selectedVenueId);
+      const venue = locationService.getById(selectedVenueId);
       if (venue) {
         setVenue(venue);
       }
     }
   }, [selectedVenueId, setVenue]);
 
-  const sortedVenues = [...funeralVenues].sort(
+  const sortedVenues = [...locationService.getAll()].sort(
     (a, b) => a.distance - b.distance,
   );
 
