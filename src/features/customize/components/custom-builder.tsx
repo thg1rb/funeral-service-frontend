@@ -8,7 +8,7 @@ import {
   ItemCategory,
   SelectedItem,
 } from "@/src/types/types";
-import { decorationItems } from "@/src/data/mock-data";
+import { decorationItemService } from "@/src/features/customize/data/services/decoration-item";
 import { packageService } from "@/src/features/package/data/services/package";
 import { cn } from "@/src/utils/utils";
 import { CategoryPanel } from "./category-panel";
@@ -40,6 +40,11 @@ export function CustomBuilder() {
   const [selectedItems, setSelectedItems] =
     useState<SelectedItem[]>(initialItems);
   const [activeCategory, setActiveCategory] = useState<ItemCategory>("coffin");
+
+  // Initialize decoration items service
+  useEffect(() => {
+    decorationItemService.init();
+  }, []);
 
   // Sync package items to order context
   useEffect(() => {
@@ -79,9 +84,7 @@ export function CustomBuilder() {
     setSelectedItems((prev) => prev.filter((si) => si.item.id !== itemId));
   }, []);
 
-  const categoryItems = decorationItems.filter(
-    (item) => item.category === activeCategory,
-  );
+  const categoryItems = decorationItemService.getByCategory(activeCategory);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};

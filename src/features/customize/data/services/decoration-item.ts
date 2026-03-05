@@ -6,8 +6,8 @@ const KEY = "funeral_decoration_items";
 
 export const decorationItemService = {
   init: () => {
-    const existing = localStorage.getItem(KEY);
-    if (!existing) {
+    const existing = storageService.get(KEY, INITIAL_DECORATION_ITEMS);
+    if (existing === INITIAL_DECORATION_ITEMS) {
       storageService.set(KEY, INITIAL_DECORATION_ITEMS);
     }
   },
