@@ -6,7 +6,7 @@ import { Loader2, FileX, ArrowLeft } from "lucide-react";
 import { Button } from "antd";
 import { BlogDetail } from "./components/blog-detail";
 import { BlogPost } from "./types/blog";
-import { blogService } from "./data/service";
+import { blogService } from "./data/services/blog";
 
 interface Props {
   params: Promise<{ id: string }>;

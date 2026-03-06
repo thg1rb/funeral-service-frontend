@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { BlogList } from "./components/blog-list";
-import { blogService } from "./data/service";
+import { blogService } from "./data/services/blog";
 import { BlogPost } from "./types/blog";
 
 export default function BlogListPage() {
