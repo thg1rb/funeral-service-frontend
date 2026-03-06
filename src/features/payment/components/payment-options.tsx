@@ -16,6 +16,7 @@ import type { PaymentMethod } from "@/src/features/payment/types/payment";
 import { formatPrice } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
 import { Button } from "antd";
+import { useOrder } from "@/src/hooks/order-context";
 
 const DEMO_TOTAL = 129900;
 
@@ -55,6 +56,7 @@ const bankDetails = {
 
 export function PaymentOptions() {
   const router = useRouter();
+  const { order, setPaymentMethod } = useOrder();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod | null>(
     null,
   );
@@ -62,8 +64,15 @@ export function PaymentOptions() {
 
   const handlePay = () => {
     if (!selectedMethod) return;
+    // Save payment method to order context
+    setPaymentMethod(selectedMethod);
     setIsProcessing(true);
     setTimeout(() => {
+      // Log the complete order when payment is completed
+      // Include payment method directly since state update is async
+      console.log("=== ORDER COMPLETED ===");
+      console.log("Order:", { ...order, paymentMethod: selectedMethod });
+      console.log("=====================");
       router.push("/completed");
     }, 2000);
   };

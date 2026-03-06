@@ -14,6 +14,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { Button, Input, Typography } from "antd";
+import { useOrder } from "@/src/hooks/order-context";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -33,6 +34,7 @@ interface FieldError {
 
 export function CustomerDetailsForm() {
   const router = useRouter();
+  const { setCustomerDetails } = useOrder();
   const [form, setForm] = useState<FormData>({
     name: "",
     phone: "",
@@ -64,6 +66,13 @@ export function CustomerDetailsForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
+      // Save customer details to order context
+      setCustomerDetails({
+        name: form.name,
+        phone: form.phone,
+        email: form.email || undefined,
+        address: form.address,
+      });
       router.push("/summary");
     }
   };
