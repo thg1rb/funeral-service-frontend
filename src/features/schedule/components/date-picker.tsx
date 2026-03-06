@@ -56,6 +56,17 @@ export function DatePicker() {
     ? diffDays(startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD")) - 1
     : 0
 
+  const hasUnavailableInRange = (start: Dayjs, end: Dayjs): boolean => {
+    let current = start
+    while (current.isBefore(end) || current.isSame(end, "day")) {
+      if (disabledDates.includes(current.format("YYYY-MM-DD"))) {
+        return true
+      }
+      current = current.add(1, "day")
+    }
+    return false
+  }
+
   const handleConfirm = () => {
     if (isComplete && startDate && endDate) {
       setDateRange(
@@ -76,7 +87,13 @@ export function DatePicker() {
           value={dates}
           onChange={(dates) => {
             if (dates && dates[0] && dates[1]) {
-              setDates([dates[0], dates[1]])
+              // Check if any date in the range is unavailable
+              if (hasUnavailableInRange(dates[0], dates[1])) {
+                // Clear the selection if the range contains unavailable dates
+                setDates(null)
+              } else {
+                setDates([dates[0], dates[1]])
+              }
             } else {
               setDates(null)
             }
