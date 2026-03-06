@@ -1,7 +1,7 @@
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_UNAVAILABLE_DATES } from "../unavailable-dates";
 
-const KEY = "unavailable_dates";
+const KEY = "funeral_unavailable_dates";
 
 export const scheduleService = {
   init: () => {

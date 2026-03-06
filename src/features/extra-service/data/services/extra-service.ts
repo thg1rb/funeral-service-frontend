@@ -2,7 +2,7 @@ import type { ExtraService } from "@/src/features/extra-service/types/extra-serv
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_EXTRA_SERVICES } from "../extra-services";
 
-const KEY = "extra_services";
+const KEY = "funeral_extra_services";
 
 export const extraService = {
   init: () => {
