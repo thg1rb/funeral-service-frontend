@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 import { Button } from "antd"
 import { useOrder } from "@/src/hooks/order-context"
-import { CATEGORY_LABELS, type ItemCategory } from "@/src/types/types"
+import { CATEGORY_LABELS, type ItemCategory } from "@/src/features/customize/types/customize"
 import { diffDays, formatDate, formatPrice } from "@/src/utils/format"
 
 export function OrderSummary() {

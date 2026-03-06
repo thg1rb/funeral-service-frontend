@@ -1,4 +1,4 @@
-import type { DecorationItem } from "@/src/types/types";
+import type { DecorationItem } from "@/src/features/customize/types/customize";
 
 export const INITIAL_DECORATION_ITEMS: DecorationItem[] = [
   // Coffins

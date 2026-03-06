@@ -1,4 +1,4 @@
-import type { ExtraService } from "@/src/types/types";
+import type { ExtraService } from "@/src/features/extra-service/types/extra-service";
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_EXTRA_SERVICES } from "../extra-services";
 

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { X, ShoppingCart, Minus, Plus } from "lucide-react";
-import { CATEGORY_LABELS, SelectedItem } from "@/src/types/types";
+import type { SelectedItem } from "@/src/features/customize/types/customize";
+import { CATEGORY_LABELS } from "@/src/features/customize/types/customize";
 import { formatPrice } from "@/src/utils/format";
 import { Button } from "antd";
 

@@ -9,14 +9,13 @@ import {
 } from "react"
 import type {
   FuneralType,
-  DecorationItem,
-  ExtraService,
-  CustomerDetails,
-  PaymentMethod,
-  SelectedItem,
-  FuneralVenue,
   OrderSummary,
 } from "@/src/types/types"
+import type { DecorationItem, SelectedItem } from "@/src/features/customize/types/customize"
+import type { ExtraService } from "@/src/features/extra-service/types/extra-service"
+import type { CustomerDetails } from "@/src/features/customer-details/types/customer-details"
+import type { PaymentMethod } from "@/src/features/payment/types/payment"
+import type { FuneralVenue } from "@/src/features/location/types/location"
 
 interface OrderContextType {
   order: OrderSummary

@@ -1,4 +1,5 @@
-import type { FuneralPackage, DecorationItem } from "@/src/types/types";
+import type { FuneralPackage, ResolvedPackage } from "@/src/features/package/types/package";
+import type { DecorationItem } from "@/src/features/customize/types/customize";
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_FUNERAL_PACKAGES } from "../package-items";
 import { INITIAL_DECORATION_ITEMS } from "@/src/features/customize/data/decoration-items";
@@ -19,9 +20,7 @@ const resolvePackageItems = (
 };
 
 // Helper function to resolve full packages with decoration items
-const resolvePackages = (
-  packages: FuneralPackage[],
-): Array<Omit<FuneralPackage, "items"> & { items: DecorationItem[] }> => {
+const resolvePackages = (packages: FuneralPackage[]): ResolvedPackage[] => {
   return packages.map((pkg) => ({
     ...pkg,
     items: resolvePackageItems(pkg.items),
@@ -51,7 +50,7 @@ export const packageService = {
     return resolvePackages(packages);
   },
 
-  getById: (id: string) => {
+  getById: (id: string): ResolvedPackage | undefined => {
     const packages = storageService.get(KEY, INITIAL_FUNERAL_PACKAGES);
     const pkg = packages.find((item) => item.id === id);
     if (!pkg) return undefined;

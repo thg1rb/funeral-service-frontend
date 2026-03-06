@@ -1,6 +1,6 @@
 "use client";
 
-import { DecorationItem, SelectedItem } from "@/src/types/types";
+import type { DecorationItem, SelectedItem } from "@/src/features/customize/types/customize";
 import { formatPrice } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
 import { Pagination } from "antd";

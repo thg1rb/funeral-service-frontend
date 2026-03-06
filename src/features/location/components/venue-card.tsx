@@ -1,6 +1,6 @@
 "use client";
 
-import { FuneralVenue } from "@/src/types/types";
+import type { FuneralVenue } from "@/src/features/location/types/location";
 import { cn } from "@/src/utils/utils";
 import { Button } from "antd";
 import { MapPin, Users, Phone, Navigation } from "lucide-react";

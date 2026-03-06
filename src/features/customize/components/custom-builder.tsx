@@ -2,12 +2,8 @@
 
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import {
-  CATEGORY_LABELS,
-  DecorationItem,
-  ItemCategory,
-  SelectedItem,
-} from "@/src/types/types";
+import type { DecorationItem, ItemCategory, SelectedItem } from "@/src/features/customize/types/customize";
+import { CATEGORY_LABELS } from "@/src/features/customize/types/customize";
 import { decorationItemService } from "@/src/features/customize/data/services/decoration-item";
 import { packageService } from "@/src/features/package/data/services/package";
 import { cn } from "@/src/utils/utils";
@@ -27,7 +23,7 @@ export function CustomBuilder() {
   const searchParams = useSearchParams();
   const packageId = searchParams.get("package");
 
-  const { setItems, setPackageName, items: orderItems } = useOrder();
+  const { setItems, setPackageName } = useOrder();
 
   const initialItems: SelectedItem[] = useMemo(() => {
     if (packageId) {

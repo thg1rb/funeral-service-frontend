@@ -1,4 +1,4 @@
-import type { FuneralVenue } from "@/src/types/types";
+import type { FuneralVenue } from "@/src/features/location/types/location";
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_LOCATIONS } from "../locations";
 

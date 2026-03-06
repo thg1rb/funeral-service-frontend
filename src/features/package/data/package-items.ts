@@ -1,4 +1,4 @@
-import type { FuneralPackage } from "@/src/types/types";
+import type { FuneralPackage } from "@/src/features/package/types/package";
 
 export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
   {

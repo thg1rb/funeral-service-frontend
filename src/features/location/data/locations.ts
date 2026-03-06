@@ -1,4 +1,4 @@
-import type { FuneralVenue } from "@/src/types/types";
+import type { FuneralVenue } from "@/src/features/location/types/location";
 
 export const INITIAL_LOCATIONS: FuneralVenue[] = [
   {

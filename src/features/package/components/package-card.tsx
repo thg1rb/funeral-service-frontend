@@ -4,11 +4,12 @@ import Link from "next/link";
 import { Check, Star } from "lucide-react";
 import { cn } from "@/src/utils/utils";
 import { Button } from "antd";
-import { CATEGORY_LABELS, FuneralPackage } from "@/src/types/types";
+import type { ResolvedPackage } from "@/src/features/package/types/package";
+import { CATEGORY_LABELS } from "@/src/features/customize/types/customize";
 import { formatPrice } from "@/src/utils/format";
 
 interface PackageCardProps {
-  pkg: FuneralPackage;
+  pkg: ResolvedPackage;
 }
 
 const tierStyles = {

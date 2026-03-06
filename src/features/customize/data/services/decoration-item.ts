@@ -1,4 +1,4 @@
-import type { DecorationItem } from "@/src/types/types";
+import type { DecorationItem } from "@/src/features/customize/types/customize";
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_DECORATION_ITEMS } from "../decoration-items";
 

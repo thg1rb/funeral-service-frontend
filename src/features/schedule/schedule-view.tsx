@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { StepIndicator } from "@/src/components/step-indication";
 import { DatePicker } from "./components/date-picker";
 
@@ -15,7 +16,9 @@ export default function SchedulePage() {
           </p>
         </div>
         {/* TODO: Implement Date-Picker */}
-        <DatePicker />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DatePicker />
+        </Suspense>
       </div>
     </main>
   );

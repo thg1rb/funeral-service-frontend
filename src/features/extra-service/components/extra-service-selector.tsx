@@ -19,7 +19,7 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { useOrder } from "@/src/hooks/order-context"
-import { ExtraService } from "@/src/types"
+import type { ExtraService } from "@/src/features/extra-service/types/extra-service"
 import { extraService } from "@/src/features/extra-service/data/services/extra-service"
 import { packageService } from "@/src/features/package/data/services/package"
 import { cn } from "@/src/utils/utils"

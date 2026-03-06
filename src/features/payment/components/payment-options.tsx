@@ -12,7 +12,7 @@ import {
   Loader2,
   ChevronRight,
 } from "lucide-react";
-import { PaymentMethod } from "@/src/types/types";
+import type { PaymentMethod } from "@/src/features/payment/types/payment";
 import { formatPrice } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
 import { Button } from "antd";

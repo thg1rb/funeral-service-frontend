@@ -16,7 +16,7 @@ const { RangePicker } = AntDatePicker
 export function DatePicker() {
   const searchParams = useSearchParams()
   const venueId = searchParams.get("venue")
-  const { setDateRange, setVenue, venue } = useOrder()
+  const { setDateRange, setVenue, order } = useOrder()
   const [dates, setDates] = useState<[Dayjs, Dayjs] | null>(null)
 
   // Initialize services
@@ -27,13 +27,13 @@ export function DatePicker() {
 
   // Load venue from URL parameter if not already set
   useEffect(() => {
-    if (venueId && !venue) {
+    if (venueId && !order.venue) {
       const foundVenue = locationService.getById(venueId)
       if (foundVenue) {
         setVenue(foundVenue)
       }
     }
-  }, [venueId, venue, setVenue])
+  }, [venueId, order.venue, setVenue])
 
   // Convert unavailable dates to dayjs format for disabled dates
   const disabledDates = scheduleService.getAll().map((d) => dayjs(d).format("YYYY-MM-DD"))
@@ -74,7 +74,13 @@ export function DatePicker() {
         </p>
         <RangePicker
           value={dates}
-          onChange={setDates}
+          onChange={(dates) => {
+            if (dates && dates[0] && dates[1]) {
+              setDates([dates[0], dates[1]])
+            } else {
+              setDates(null)
+            }
+          }}
           disabledDate={disabledDate}
           inputReadOnly
           format="DD MMM YYYY"

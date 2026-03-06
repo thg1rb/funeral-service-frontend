@@ -1,4 +1,4 @@
-import type { ExtraService } from "@/src/types/types";
+import type { ExtraService } from "@/src/features/extra-service/types/extra-service";
 
 export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
   // Human funeral services

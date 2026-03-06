@@ -1,3 +1,5 @@
+import type { FuneralType } from "@/src/types/types";
+
 export interface ExtraService {
   id: string;
   name: string;
