@@ -18,7 +18,6 @@ import { cn } from "@/src/utils/utils";
 import { Button } from "antd";
 import { useOrder } from "@/src/hooks/order-context";
 
-const DEMO_TOTAL = 129900;
 
 interface PaymentOption {
   id: PaymentMethod;
@@ -84,7 +83,7 @@ export function PaymentOptions() {
         <div>
           <p className="text-xs text-muted-foreground">ยอดชำระทั้งสิ้น</p>
           <p className="text-2xl font-bold text-primary">
-            {formatPrice(DEMO_TOTAL)}
+            {formatPrice(order.totalPrice)}
           </p>
         </div>
         <div className="flex items-center gap-1.5 rounded-full bg-card px-3 py-1.5 text-xs text-muted-foreground border border-border">
@@ -171,7 +170,7 @@ export function PaymentOptions() {
             <div className="flex justify-between">
               <span className="text-muted-foreground">จำนวนเงิน</span>
               <span className="font-bold text-primary">
-                {formatPrice(DEMO_TOTAL)}
+                {formatPrice(order.totalPrice)}
               </span>
             </div>
           </div>
@@ -195,7 +194,7 @@ export function PaymentOptions() {
             <br />
             ยอด{" "}
             <span className="font-semibold text-primary">
-              {formatPrice(DEMO_TOTAL)}
+              {formatPrice(order.totalPrice)}
             </span>
           </p>
         </div>
