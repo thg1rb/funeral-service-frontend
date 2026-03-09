@@ -7,4 +7,5 @@ export interface BlogPost {
   date: string;
   image: string;
   category: string;
+  deletedAt: string | null;
 }

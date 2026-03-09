@@ -3,20 +3,22 @@ import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { Button } from "antd";
 import { formatDate } from "@/src/utils/format";
 import { BlogPost } from "../types/blog";
+import { useRouter } from "next/navigation";
 
 interface BlogDetailProps {
   post: BlogPost;
 }
 
 export function BlogDetail({ post }: BlogDetailProps) {
+  const router = useRouter()
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 lg:px-8">
-      <Link href="/blogs">
-        <Button className="gap-2 mb-6">
-          <ArrowLeft className="h-4 w-4" />
-          กลับไปรายการบทความ
-        </Button>
-      </Link>
+      <Button className="gap-2 mb-6" onClick={() => {
+        router.back()
+      }}>
+        <ArrowLeft className="h-4 w-4" />
+        กลับไปรายการบทความ
+      </Button>
 
       <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
         <span className="flex items-center gap-1.5">

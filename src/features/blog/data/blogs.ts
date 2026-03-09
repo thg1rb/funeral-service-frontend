@@ -18,6 +18,7 @@ export const INITIAL_BLOGS: BlogPost[] = [
     date: "2026-01-15",
     image: "/images/blog/blog-1.jpg",
     category: "ความรู้",
+    deletedAt: null,
   },
   {
     id: "blog-2",
@@ -34,6 +35,7 @@ export const INITIAL_BLOGS: BlogPost[] = [
     date: "2026-01-20",
     image: "/images/blog/blog-2.jpg",
     category: "แนะนำ",
+    deletedAt: null,
   },
   {
     id: "blog-3",
@@ -52,6 +54,7 @@ export const INITIAL_BLOGS: BlogPost[] = [
     date: "2026-02-01",
     image: "/images/blog/blog-3.jpg",
     category: "สุขภาพจิต",
+    deletedAt: null,
   },
   {
     id: "blog-4",
@@ -66,5 +69,6 @@ export const INITIAL_BLOGS: BlogPost[] = [
     date: "2026-02-03",
     image: "/images/blog/blog-4.jpg",
     category: "สัตว์เลี้ยง",
+    deletedAt: null,
   },
 ];

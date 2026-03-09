@@ -1,3 +1,3 @@
-import AdminBlog from "@/src/features/admin-blog/AdminBlogSection";
+import AdminBlog from "@/src/features/admin-blog/components/AdminBlogSection";
 
 export default AdminBlog
