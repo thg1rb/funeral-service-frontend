@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { PartnerType } from "../types/enum";
 import { useEffect, useState } from "react";
 import { CATEGORY_LABELS, DecorationItem, ItemCategory } from '../../customize/types/customize';
-import { DecorationItemCreate, DecorationItemUpdate } from '../data/item';
+import { DecorationItemCreate, DecorationItemUpdate } from '../types/item';
 import TextArea from 'antd/es/input/TextArea';
 import { Partner } from '../types/partner';
 import { updateDecorationItem } from '../services/decorate-item/update-item';

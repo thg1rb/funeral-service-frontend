@@ -1,7 +1,7 @@
 import { DecorationItem } from "@/src/features/customize/types/customize"
 import { DECORATE_KEY } from "../../data/constants"
 import { INITIAL_DECORATION_ITEMS } from "@/src/features/customize/data/decoration-items"
-import { DecorationItemUpdate } from "../../data/item"
+import { DecorationItemUpdate } from "../../types/item"
 
 export const updateDecorationItem = (newItem: DecorationItemUpdate, id: string) => {
   const res = localStorage.getItem(DECORATE_KEY)

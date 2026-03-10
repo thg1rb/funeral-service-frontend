@@ -1,6 +1,6 @@
 import { INITIAL_DECORATION_ITEMS } from "@/src/features/customize/data/decoration-items"
 import { DECORATE_KEY } from "../../data/constants"
-import { DecorationItemCreate } from "../../data/item"
+import { DecorationItemCreate } from "../../types/item"
 
 export const createDecorationItem = (newItem: DecorationItemCreate) => {
   const res = localStorage.getItem(DECORATE_KEY)
