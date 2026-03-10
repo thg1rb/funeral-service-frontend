@@ -1,15 +1,15 @@
 import { KEY } from "../data/constants"
-import { partners } from "../data/partners"
+import { INITIAL_PARTNERS } from "../data/partners"
 import { PartnerStatus, PartnerType } from "../types/enum"
 import { Partner } from "../types/partner"
 
 export const getPartners = (type: PartnerType): Partner[] => {
   const res = localStorage.getItem(KEY)
-  let result = partners
+  let result = INITIAL_PARTNERS
   if (res !== null) {
     result = JSON.parse(res)
   } else {
-    localStorage.setItem(KEY, JSON.stringify(partners))
+    localStorage.setItem(KEY, JSON.stringify(INITIAL_PARTNERS))
   }
   result = result.filter((element) => element.status === PartnerStatus.ACTIVE)
 

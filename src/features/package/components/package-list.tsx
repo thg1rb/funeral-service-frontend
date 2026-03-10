@@ -14,10 +14,12 @@ export function PackageList() {
   );
 
   useEffect(() => {
+    console.log("TEST")
     packageService.init();
   }, []);
 
   const filtered = packageService.getByFuneralType(activeType);
+  console.log("TEST: ", filtered)
 
   return (
     <div className="mt-10">

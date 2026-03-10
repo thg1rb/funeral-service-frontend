@@ -3,6 +3,8 @@ import { Pencil, Trash } from "lucide-react"
 import { ReactNode } from "react"
 import { Partner } from "../types/partner"
 import { softDeletePartner } from "../services/soft-delete-partner"
+import { useRouter } from "next/navigation"
+import { PartnerType } from "../types/enum"
 
 interface PartnerContainerProps {
   icon: ReactNode
@@ -12,10 +14,15 @@ interface PartnerContainerProps {
 }
 
 export default function PartnerContainer(props: PartnerContainerProps) {
+  const router = useRouter()
 
   const deletePartner = () => {
     softDeletePartner(props.partner.ownerName)
     props.fetchPartner()
+  }
+
+  const handleShowDecorationItem = (id: string) => {
+    router.push(`/admin/partners/${id}`)
   }
 
   return (
@@ -34,17 +41,31 @@ export default function PartnerContainer(props: PartnerContainerProps) {
         <p>{props.partner.ownerName} • {props.partner.ownerTel}</p>
         <p className="text-gray-400">{props.partner.address}</p>
       </div>
-      <div className="flex gap-3 ">
-        <Button type="text" className="border! border-gray-500!" onClick={() => {
-          props.openModal(props.partner)
-        }}>
-          <Pencil size={18} />
-          แก้ไข
-        </Button>
-        <Button type="text" className="text-red-400! broder! border-red-400!" onClick={deletePartner}>
-          <Trash size={18} />
-          ลบ
-        </Button>
+      <div className="flex gap-3 justify-between">
+        <div className="flex gap-3">
+          <Button type="text" className="border! border-gray-500!" onClick={() => {
+            props.openModal(props.partner)
+          }}>
+            <Pencil size={18} />
+            แก้ไข
+          </Button>
+          <Button type="text" className="text-red-400! broder! border-red-400!" onClick={deletePartner}>
+            <Trash size={18} />
+            ลบ
+          </Button>
+        </div>
+        {
+          props.partner.type === PartnerType.AVENUE ?
+            <></>
+            :
+            <div>
+              <Button type="text" className="text-blue-400! broder! border-blue-400!" onClick={() => {
+                handleShowDecorationItem(props.partner.id)
+              }}>
+                ดูสินค้า
+              </Button>
+            </div>
+        }
       </div>
     </div>
   )

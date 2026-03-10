@@ -1,7 +1,7 @@
 import { PartnerStatus, PartnerType } from "../types/enum";
 import { Partner } from "../types/partner";
 
-export const partners: Partner[] = [
+export const INITIAL_PARTNERS: Partner[] = [
   {
     id: "550e8400-e29b-41d4-a716-446655440000",
     name: "ร้านดอกไม้ประดับศพ มนตรีฟลาวเวอร์",
@@ -11,16 +11,8 @@ export const partners: Partner[] = [
     ownerTel: "081-444-5566",
     address: "12/4 ถ.จรัญสนิทวงศ์ แขวงบางขุนศรี เขตบางกอกน้อย กรุงเทพฯ 10700",
     status: PartnerStatus.ACTIVE,
-  },
-  {
-    id: "67c3ca84-3580-466a-939e-d30c5e796062",
-    name: "วัดธาตุทอง พระอารามหลวง",
-    type: PartnerType.AVENUE,
-    category: "ศาลาสวดอภิธรรม",
-    ownerName: "สำนักงานศาสนสมบัติ",
-    ownerTel: "02-391-9616",
-    address: "1325 ถ.สุขุมวิท แขวงพระโขนงเหนือ เขตวัฒนา กรุงเทพฯ 10110",
-    status: PartnerStatus.ACTIVE,
+    lat: 13.7554,
+    lng: 100.4735,
   },
   {
     id: "8c7b8e5c-1b7e-4b2a-8c3d-9d4e5f6a7b8c",
@@ -31,6 +23,8 @@ export const partners: Partner[] = [
     ownerTel: "089-123-9988",
     address: "45 ถ.พาหุรัด แขวงวังบูรพาภิรมย์ เขตพระนคร กรุงเทพฯ 10200",
     status: PartnerStatus.ACTIVE,
+    lat: 13.7448,
+    lng: 100.5005,
   },
   {
     id: "2d3e4f5g-6h7i-8j9k-0l1m-2n3o4p5q6r7s",
@@ -41,16 +35,8 @@ export const partners: Partner[] = [
     ownerTel: "02-902-7999",
     address: "11/1 ม.6 ต.คลองสี่ อ.คลองหลวง จ.ปทุมธานี 12120",
     status: PartnerStatus.ACTIVE,
-  },
-  {
-    id: "a1b2c3d4-e5f6-4789-a0b1-c2d3e4f5a6b7",
-    name: "วัดมกุฏกษัตริยารามราชวรวิหาร",
-    type: PartnerType.AVENUE,
-    category: "สถานที่จัดงานศพ",
-    ownerName: "เจ้าหน้าที่ฝ่ายฌาปนสถาน",
-    ownerTel: "02-281-2840",
-    address: "ถ.ราชดำเนินนอก แขวงบางขุนพรหม เขตพระนคร กรุงเทพฯ 10200",
-    status: PartnerStatus.ACTIVE,
+    lat: 14.0531,
+    lng: 100.6725,
   },
   {
     id: "f9e8d7c6-b5a4-4321-8765-43210fedcba9",
@@ -61,6 +47,8 @@ export const partners: Partner[] = [
     ownerTel: "086-333-2211",
     address: "88 ถ.บำรุงเมือง แขวงเสาชิงช้า เขตพระนคร กรุงเทพฯ 10200",
     status: PartnerStatus.INACTIVE,
+    lat: 13.7516,
+    lng: 100.5012,
   },
   {
     id: "b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
@@ -71,16 +59,8 @@ export const partners: Partner[] = [
     ownerTel: "084-555-7788",
     address: "102 ถ.ราชพฤกษ์ แขวงตลิ่งชัน เขตตลิ่งชัน กรุงเทพฯ 10170",
     status: PartnerStatus.ACTIVE,
-  },
-  {
-    id: "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
-    name: "วัดตรีทศเทพวรวิหาร",
-    type: PartnerType.AVENUE,
-    category: "ศาลาสวดอภิธรรม",
-    ownerName: "ฝ่ายสถานที่วัดตรีทศเทพ",
-    ownerTel: "02-281-2430",
-    address: "167 ถ.ประชาธิปไตย แขวงบ้านพานถม เขตพระนคร กรุงเทพฯ 10200",
-    status: PartnerStatus.ACTIVE,
+    lat: 13.7745,
+    lng: 100.4438,
   },
   {
     id: "d3e4f5a6-b7c8-4d9e-0f1a-2b3c4d5e6f7a",
@@ -91,6 +71,8 @@ export const partners: Partner[] = [
     ownerTel: "081-888-9900",
     address: "55/9 ถ.ปิ่นเกล้า แขวงอรุณอมรินทร์ เขตบางพลัด กรุงเทพฯ 10700",
     status: PartnerStatus.ACTIVE,
+    lat: 13.7681,
+    lng: 100.4789,
   },
   {
     id: "e4f5a6b7-c8d9-4e0f-1a2b-3c4d5e6f7a8b",
@@ -101,5 +83,43 @@ export const partners: Partner[] = [
     ownerTel: "02-552-4521",
     address: "ถ.พหลโยธิน แขวงอนุสาวรีย์ เขตบางเขน กรุงเทพฯ 10220",
     status: PartnerStatus.ACTIVE,
-  }
+    lat: 13.8741,
+    lng: 100.5919,
+  },
+  {
+    id: "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
+    name: "วัดตรีทศเทพวรวิหาร",
+    type: PartnerType.AVENUE,
+    category: "ศาลาสวดอภิธรรม",
+    ownerName: "ฝ่ายสถานที่วัดตรีทศเทพ",
+    ownerTel: "02-281-2430",
+    address: "167 ถ.ประชาธิปไตย แขวงบ้านพานถม เขตพระนคร กรุงเทพฯ 10200",
+    status: PartnerStatus.ACTIVE,
+    lat: 13.7619,
+    lng: 100.5019,
+  },
+  {
+    id: "a1b2c3d4-e5f6-4789-a0b1-c2d3e4f5a6b7",
+    name: "วัดมกุฏกษัตริยารามราชวรวิหาร",
+    type: PartnerType.AVENUE,
+    category: "สถานที่จัดงานศพ",
+    ownerName: "เจ้าหน้าที่ฝ่ายฌาปนสถาน",
+    ownerTel: "02-281-2840",
+    address: "ถ.ราชดำเนินนอก แขวงบางขุนพรหม เขตพระนคร กรุงเทพฯ 10200",
+    status: PartnerStatus.ACTIVE,
+    lat: 13.7645,
+    lng: 100.5065,
+  },
+  {
+    id: "67c3ca84-3580-466a-939e-d30c5e796062",
+    name: "วัดธาตุทอง พระอารามหลวง",
+    type: PartnerType.AVENUE,
+    category: "ศาลาสวดอภิธรรม",
+    ownerName: "สำนักงานศาสนสมบัติ",
+    ownerTel: "02-391-9616",
+    address: "1325 ถ.สุขุมวิท แขวงพระโขนงเหนือ เขตวัฒนา กรุงเทพฯ 10110",
+    status: PartnerStatus.ACTIVE,
+    lat: 13.7191,
+    lng: 100.5847,
+  },
 ];

@@ -7,4 +7,5 @@ export interface ExtraService {
   price: number;
   icon: string;
   funeralType: FuneralType | "both";
+  deletedAt: string | null
 }

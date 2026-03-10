@@ -1,11 +1,11 @@
 import { KEY } from "../data/constants"
-import { partners } from "../data/partners"
+import { INITIAL_PARTNERS } from "../data/partners"
 import { PartnerStatus } from "../types/enum"
 import { Partner, PartnerUpdate } from "../types/partner"
 
 export const updatePartner = (newPartner: PartnerUpdate, id: string) => {
   const res = localStorage.getItem(KEY)
-  let data = partners
+  let data = INITIAL_PARTNERS
   if (res !== null) {
     data = JSON.parse(res)
   }

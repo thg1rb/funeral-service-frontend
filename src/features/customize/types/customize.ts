@@ -1,4 +1,5 @@
 export interface DecorationItem {
+  partnerId: string
   id: string;
   name: string;
   category: ItemCategory;
@@ -7,6 +8,7 @@ export interface DecorationItem {
   vendor: string;
   description: string;
   maxQuantity?: number;
+  deletedAt: string | null
 }
 
 export interface SelectedItem {

@@ -1,0 +1,1 @@
+export const EXTRA_SERVICE_KEY = "funeral_extra_services"

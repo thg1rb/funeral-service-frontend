@@ -1,4 +1,4 @@
-import type { FuneralPackage } from "@/src/features/package/types/package";
+import { FuneralPackage } from "../types/package";
 
 export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
   {
@@ -9,11 +9,11 @@ export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
     description: "แพ็คเกจสำหรับงานศพเรียบง่าย ครบถ้วนในราคาประหยัด",
     funeralType: "human",
     items: [
-      { id: "coffin-4" },
-      { id: "flower-4", quantity: 10 },
-      { id: "backdrop-1" },
-      { id: "table-1", quantity: 3 },
-      { id: "equip-3" },
+      { id: "mf-08", quantity: 1 }, // หีบศพขาวลายเทพนม (มาตรฐาน)
+      { id: "mf-02", quantity: 2 }, // พวงหรีดดอกไม้สด
+      { id: "mf-04", quantity: 1 }, // ฉาก Backdrop ผ้าไหม
+      { id: "mf-07", quantity: 1 }, // โต๊ะหมู่บูชา
+      { id: "br-01", quantity: 100 }, // ของชำร่วยยาหม่อง
     ],
   },
   {
@@ -21,16 +21,16 @@ export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
     name: "แพ็คเกจมาตรฐาน",
     tier: "standard",
     price: 69900,
-    description: "แพ็คเกจมาตรฐาน ครบครันทุกรายละเอียด เหมาะสำหรับงานศพทั้วไป",
+    description: "แพ็คเกจมาตรฐาน ครบครันทุกรายละเอียด เหมาะสำหรับงานศพทั่วไป",
     funeralType: "human",
     items: [
-      { id: "coffin-1" },
-      { id: "flower-1", quantity: 10 },
-      { id: "backdrop-1" },
-      { id: "table-2", quantity: 2 },
-      { id: "equip-1" },
-      { id: "equip-2" },
-      { id: "equip-3", quantity: 5 },
+      { id: "sy-02", quantity: 1 }, // หีบศพปรับอากาศ (โลงเย็น)
+      { id: "mf-10", quantity: 2 }, // แจกันดอกไม้หน้าหีบ
+      { id: "sy-04", quantity: 1 }, // Backdrop ลายจิตรกรรม
+      { id: "sy-05", quantity: 1 }, // แท่นตั้งหีบศพขาสิงห์
+      { id: "sy-06", quantity: 1 }, // ชุดเครื่องทองน้อย
+      { id: "rr-01", quantity: 5 },  // ชุดสังฆทานยา
+      { id: "br-02", quantity: 50 }, // ของชำร่วยร่มพับ
     ],
   },
   {
@@ -41,14 +41,13 @@ export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
     description: "แพ็คเกจระดับพรีเมียม หรูหราสมเกียรติ พร้อมบริการครบวงจร",
     funeralType: "human",
     items: [
-      { id: "coffin-2" },
-      { id: "flower-2", quantity: 10 },
-      { id: "backdrop-3" },
-      { id: "table-2", quantity: 2 },
-      { id: "table-3", quantity: 20 },
-      { id: "equip-3", quantity: 5 },
-      { id: "equip-2" },
-      { id: "equip-4", quantity: 5 },
+      { id: "sy-01", quantity: 1 }, // หีบศพไม้สักทอง แกะสลัก
+      { id: "mf-01", quantity: 1 }, // จัดดอกไม้ชุดนกยูงคู่บารมี
+      { id: "pd-03", quantity: 1 }, // Backdrop ไวนิลรูปผู้เสียชีวิต
+      { id: "rr-04", quantity: 1 }, // โต๊ะหมู่บูชาไม้สักแท้หน้า 9
+      { id: "rn-02", quantity: 2 }, // กระเพาะปลา (สำหรับแขก 100 ท่าน)
+      { id: "pd-04", quantity: 1 }, // โต๊ะลงนามคำไว้อาลัย
+      { id: "sy-07", quantity: 1 }, // โกศเซรามิกเบญจรงค์
     ],
   },
   {
@@ -59,8 +58,9 @@ export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
     description: "แพ็คเกจงานอำลาสัตว์เลี้ยง เรียบง่ายและอบอุ่น",
     funeralType: "pet",
     items: [
-      { id: "flower-4", quantity: 10 },
-      { id: "equip-4", quantity: 5 },
+      { id: "mf-02", quantity: 1 }, // พวงหรีดดอกไม้สด
+      { id: "pd-05", quantity: 1 }, // สติ๊กเกอร์ติดของที่ระลึก
+      { id: "br-10", quantity: 20 }, // สเปรย์แอลกอฮอล์
     ],
   },
   {
@@ -71,9 +71,9 @@ export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
     description: "แพ็คเกจงานอำลาสัตว์เลี้ยง พร้อมพิธีกรรมครบถ้วน",
     funeralType: "pet",
     items: [
-      { id: "flower-3", quantity: 5 },
-      { id: "backdrop-1" },
-      { id: "equip-3", quantity: 5 },
+      { id: "sy-09", quantity: 1 }, // จัดดอกไม้หน้าหีบแบบทันสมัย
+      { id: "mf-04", quantity: 1 }, // ฉาก Backdrop ผ้าไหม
+      { id: "sy-10", quantity: 1 }, // เชิงเทียนและกระถางธูปทองเหลือง
     ],
   },
   {
@@ -84,11 +84,11 @@ export const INITIAL_FUNERAL_PACKAGES: FuneralPackage[] = [
     description: "แพ็คเกจงานอำลาสัตว์เลี้ยง ระดับพรีเมียม ดูแลทุกรายละเอียด",
     funeralType: "pet",
     items: [
-      { id: "flower-2", quantity: 10 },
-      { id: "backdrop-3" },
-      { id: "table-1", quantity: 3 },
-      { id: "equip-3", quantity: 5 },
-      { id: "equip-2" },
+      { id: "mf-01", quantity: 1 }, // ดอกไม้นกยูงชุดเล็ก
+      { id: "sy-04", quantity: 1 }, // Backdrop ลายจิตรกรรม
+      { id: "br-07", quantity: 1 }, // โต๊ะวางของ
+      { id: "rn-01", quantity: 30 }, // Snack Box รสนิยม
+      { id: "sy-07", quantity: 1 }, // โกศเซรามิกเบญจรงค์
     ],
   },
 ];

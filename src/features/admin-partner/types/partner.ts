@@ -9,6 +9,8 @@ export interface Partner {
   ownerTel: string
   address: string
   status: PartnerStatus
+  lat: number
+  lng: number
 }
 
 export interface PartnerCreate {
@@ -20,6 +22,8 @@ export interface PartnerCreate {
   ownerTel: string
   address: string
   status: PartnerStatus
+  lat: number
+  lng: number
 }
 
 export interface PartnerUpdate {
@@ -30,4 +34,6 @@ export interface PartnerUpdate {
   ownerTel: string
   address: string
   status: PartnerStatus
+  lat: number
+  lng: number
 }

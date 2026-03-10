@@ -1,13 +1,13 @@
 "use client"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
-import PartnerContainer from "./components/PartnerContainer"
+import PartnerContainer from "./PartnerContainer"
 import { Plus, Store } from "lucide-react"
 import { Button } from "antd"
-import PartnerModal from "./components/PartnerModal"
-import { getPartners } from "./services/get-partners"
-import { Partner } from "./types/partner"
-import { PartnerType } from "./types/enum"
+import PartnerModal from "./PartnerModal"
+import { getPartners } from "../services/get-partners"
+import { Partner } from "../types/partner"
+import { PartnerType } from "../types/enum"
 
 export default function AdminPartnerSection() {
   const [partners, setPartners] = useState<Partner[]>([])

@@ -1,10 +1,10 @@
-import { KEY } from "../../admin-partner/data/constants"
 import { INITIAL_BLOGS } from "../../blog/data/blogs"
 import { BlogPost } from "../../blog/types/blog"
+import { BLOGS_KEY } from "../data/constant"
 import { BlogUpdate } from "../types/blog"
 
 export const updateBlog = (newBlog: BlogUpdate, id: string) => {
-  const res = localStorage.getItem(KEY)
+  const res = localStorage.getItem(BLOGS_KEY)
   let data = INITIAL_BLOGS
   if (res !== null) {
     data = JSON.parse(res)
@@ -16,6 +16,6 @@ export const updateBlog = (newBlog: BlogUpdate, id: string) => {
     targetData.excerpt = newBlog.excerpt
     targetData.image = newBlog.image
     targetData.title = newBlog.title
-    localStorage.setItem(KEY, JSON.stringify(data))
+    localStorage.setItem(BLOGS_KEY, JSON.stringify(data))
   }
 }

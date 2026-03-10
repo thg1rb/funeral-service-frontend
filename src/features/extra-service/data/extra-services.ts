@@ -9,6 +9,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 8000,
     icon: "camera",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h2",
@@ -17,6 +18,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 5000,
     icon: "car",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h3",
@@ -25,6 +27,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 12000,
     icon: "utensils",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h4",
@@ -33,6 +36,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 18000,
     icon: "users",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h5",
@@ -41,6 +45,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 9500,
     icon: "music",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h6",
@@ -49,6 +54,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 15000,
     icon: "shield",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h7",
@@ -57,6 +63,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 4500,
     icon: "gift",
     funeralType: "human",
+    deletedAt: null,
   },
   {
     id: "extra-h8",
@@ -65,6 +72,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 6500,
     icon: "video",
     funeralType: "human",
+    deletedAt: null,
   },
   // Pet funeral services
   {
@@ -74,6 +82,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 3500,
     icon: "camera",
     funeralType: "pet",
+    deletedAt: null,
   },
   {
     id: "extra-p2",
@@ -82,6 +91,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 2500,
     icon: "video",
     funeralType: "pet",
+    deletedAt: null,
   },
   {
     id: "extra-p3",
@@ -90,6 +100,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 1800,
     icon: "gift",
     funeralType: "pet",
+    deletedAt: null,
   },
   {
     id: "extra-p4",
@@ -98,6 +109,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 3200,
     icon: "shield",
     funeralType: "pet",
+    deletedAt: null,
   },
   {
     id: "extra-p5",
@@ -106,6 +118,7 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 1500,
     icon: "sparkles",
     funeralType: "pet",
+    deletedAt: null,
   },
   {
     id: "extra-p6",
@@ -114,5 +127,6 @@ export const INITIAL_EXTRA_SERVICES: ExtraService[] = [
     price: 4000,
     icon: "users",
     funeralType: "pet",
+    deletedAt: null,
   },
 ];

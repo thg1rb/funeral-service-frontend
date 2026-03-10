@@ -23,6 +23,8 @@ interface IFormInput {
   ownerName: string
   ownerTel: string
   address: string
+  lat: number
+  lng: number
 }
 export default function PartnerModal(props: PartnerModalProps) {
   const { handleSubmit, control, reset } = useForm<IFormInput>({
@@ -37,6 +39,8 @@ export default function PartnerModal(props: PartnerModalProps) {
       ownerName: data.ownerName,
       ownerTel: data.ownerTel,
       address: data.address,
+      lat: data.lat,
+      lng: data.lng,
       status: PartnerStatus.ACTIVE,
     }
     if (props.partner === undefined) {
@@ -52,6 +56,8 @@ export default function PartnerModal(props: PartnerModalProps) {
         ownerTel: data.ownerTel,
         address: data.address,
         status: PartnerStatus.ACTIVE,
+        lat: data.lat,
+        lng: data.lng
       }
       updatePartner(newPartner, props.partner.id)
       props.fetchPartner()
@@ -68,6 +74,8 @@ export default function PartnerModal(props: PartnerModalProps) {
         ownerName: props.partner.ownerName,
         ownerTel: props.partner.ownerTel,
         address: props.partner.address,
+        lat: props.partner.lat,
+        lng: props.partner.lng,
       });
     } else {
       reset({
@@ -76,6 +84,8 @@ export default function PartnerModal(props: PartnerModalProps) {
         ownerName: "",
         ownerTel: "",
         address: "",
+        lat: undefined,
+        lng: undefined
       });
     }
   }, [props.isModalOpen, reset, props.partner])
@@ -226,6 +236,48 @@ export default function PartnerModal(props: PartnerModalProps) {
               </>
             )}
           />
+        </div>
+        <div className="flex gap-5">
+          <div className="flex-1 flex flex-col gap-2">
+            <label className="text-foreground block" >ละติจูดที่ต้องของร้านค้าพาร์ทเนอร์</label>
+            <Controller
+              name="lat"
+              control={control}
+              rules={{ required: "กรุณากรอกละติจูดที่ต้องของร้านค้าพาร์ทเนอร์" }}
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <Input
+                    type="number"
+                    {...field}
+                    status={error ? "error" : ""}
+                    placeholder="ระบุละติจูดที่ต้องของร้านค้าพาร์ทเนอร"
+                    className="focus:border-primary! focus:outline-none!"
+                  />
+                  {error && <span className="text-destructive text-sm">{error.message}</span>}
+                </>
+              )}
+            />
+          </div>
+          <div className="flex-1 flex flex-col gap-2">
+            <label className="text-foreground block" >ลองจิจูดที่ต้องของร้านค้าพาร์ทเนอร์</label>
+            <Controller
+              name="lng"
+              control={control}
+              rules={{ required: "กรุณากรอกลองจิจูดที่ต้องของร้านค้าพาร์ทเนอร์" }}
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <Input
+                    type="number"
+                    {...field}
+                    status={error ? "error" : ""}
+                    placeholder="ระบุลองจิจูดที่ต้องของร้านค้าพาร์ทเนอร"
+                    className="focus:border-primary! focus:outline-none!"
+                  />
+                  {error && <span className="text-destructive text-sm">{error.message}</span>}
+                </>
+              )}
+            />
+          </div>
         </div>
       </form>
     </Modal>
