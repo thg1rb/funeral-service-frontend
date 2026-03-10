@@ -1,32 +1,27 @@
 import { formatPrice } from "@/src/utils/format"
 import { ExtraService } from "../../extra-service/types/extra-service"
 import {
-  Camera,
-  Car,
-  Utensils,
-  Users,
-  Music,
-  Video,
-  Shield,
-  Gift,
-  Sparkles,
-  Check,
-  Plus,
-  ArrowLeft,
-  ArrowRight,
-  GiftIcon,
+  Pencil,
+  Trash,
 } from "lucide-react"
-import { useEffect, useState } from "react"
+import { Button } from "antd"
+import { softDeleteExtraService } from "../service/soft-delete-extra-service"
 
 interface ExtraServiceBoxProps {
   extraService: ExtraService
+  openModal: (extraService: ExtraService) => void
+  fetchExtraService: () => void
 }
 
 export default function ExtraServiceBox(props: ExtraServiceBoxProps) {
-  return <button
+
+  const handleDelete = () => {
+    softDeleteExtraService(props.extraService?.id)
+    props.fetchExtraService()
+  }
+
+  return <div
     key={props.extraService.id}
-    type="button"
-    // onClick={() => toggleExtraService(service)}
     className={(
       "group relative flex flex-col rounded-lg border-2 bg-card p-5 text-left transition-all")}
   >
@@ -49,5 +44,17 @@ export default function ExtraServiceBox(props: ExtraServiceBoxProps) {
       >
       </div>
     </div>
-  </button>
+    <div className="flex gap-3 mt-5">
+      <Button type="text" className="border! border-gray-500!" onClick={() => {
+        props.openModal(props.extraService)
+      }}>
+        <Pencil size={18} />
+        แก้ไข
+      </Button>
+      <Button type="text" className="text-red-400! broder! border-red-400!" onClick={handleDelete}>
+        <Trash size={18} />
+        ลบ
+      </Button>
+    </div>
+  </div>
 }

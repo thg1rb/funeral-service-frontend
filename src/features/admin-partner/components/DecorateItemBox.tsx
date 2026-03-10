@@ -15,7 +15,6 @@ export default function DecorateItemBox(props: DecorateItemBoxProps) {
 
   const handdleDeleteItem = () => {
     if (props.fetchItem !== undefined) {
-      console.log("TEST")
       softDeleteItem(props.item.id)
       props.fetchItem()
     }

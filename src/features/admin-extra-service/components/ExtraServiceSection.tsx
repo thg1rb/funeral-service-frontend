@@ -6,15 +6,16 @@ import { Button } from "antd"
 import { ExtraService } from "../../extra-service/types/extra-service"
 import { getExtraService } from "../service/get-extra-service"
 import ExtraServiceBox from "./ExtraServiceBox"
+import ExtraServiceModal from "./ExtraServiceModal"
 
 export default function ExtraServiceSection() {
-  const [extraService, setExtraServices] = useState<ExtraService[]>([])
+  const [extraServices, setExtraServices] = useState<ExtraService[]>([])
   const [modalExtraService, setModalExtraService] = useState<ExtraService | undefined>(undefined)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = (partner?: ExtraService) => {
-    setModalExtraService(partner)
+  const showModal = (extraService?: ExtraService) => {
+    setModalExtraService(extraService)
     setIsModalOpen(true);
   };
 
@@ -40,23 +41,30 @@ export default function ExtraServiceSection() {
       <div className="flex justify-between">
         <p className="font-bold text-2xl">บริการเสริม</p>
         <Button className="bg-primary! text-background! font-semibold! rounded-xl! px-5!" onClick={() => {
-          // showModal()
+          showModal()
         }}>
           <Plus />
           เพิ่มบริการเสริม
         </Button>
-        {/* <PartnerModal
+        <ExtraServiceModal
+          extraService={modalExtraService}
           isModalOpen={isModalOpen}
           handleOk={handleOk}
           handleCancel={handleCancel}
-          partner={modalPartner}
-          fetchPartner={fetchPartner}
-        /> */}
+          fetchExtraService={fetchExtraService}
+        />
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-5 justify-center">
         {
-          extraService.map((element, index) => {
-            return <ExtraServiceBox extraService={element} key={element.id}/>
+          extraServices.map((element, index) => {
+            return <ExtraServiceBox
+              fetchExtraService={fetchExtraService}
+              extraService={element}
+              key={element.id}
+              openModal={(extraService: ExtraService) => {
+                showModal(extraService)
+              }}
+            />
           })
         }
       </div>

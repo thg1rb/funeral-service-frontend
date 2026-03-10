@@ -82,8 +82,8 @@ export default function ItemModal(props: ItemModalProps) {
         description: "",
         image: "",
         name: "",
-        price: undefined,
-        maxQuantity: undefined
+        price: null as any,
+        maxQuantity: null as any
       });
     }
   }, [props.isModalOpen, reset, props.item])
@@ -238,14 +238,14 @@ export default function ItemModal(props: ItemModalProps) {
             <Controller
               name="description"
               control={control}
-              rules={{ required: "กรุณากรอกคำอธิบานสินค้า" }}
+              rules={{ required: "กรุณากรอกคำอธิบายสินค้า" }}
               render={({ field, fieldState: { error } }) => (
                 <>
                   <TextArea
                     rows={5}
                     {...field}
                     status={error ? "error" : ""}
-                    placeholder="ระบุคำอธิบยสินค้า"
+                    placeholder="ระบุคำอธิบายสินค้า"
                     className="focus:border-primary! focus:outline-none!"
                   />
                   {error && <span className="text-destructive text-sm">{error.message}</span>}

@@ -84,8 +84,8 @@ export default function PartnerModal(props: PartnerModalProps) {
         ownerName: "",
         ownerTel: "",
         address: "",
-        lat: undefined,
-        lng: undefined
+        lat: null as any,
+        lng: null as any
       });
     }
   }, [props.isModalOpen, reset, props.partner])
