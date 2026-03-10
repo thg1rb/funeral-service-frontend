@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Check, Star } from "lucide-react";
+import { Check, Pencil, Star } from "lucide-react";
 import { cn } from "@/src/utils/utils";
 import { Button } from "antd";
 import type { ResolvedPackage } from "@/src/features/package/types/package";
 import { CATEGORY_LABELS } from "@/src/features/customize/types/customize";
 import { formatPrice } from "@/src/utils/format";
+import { useRouter } from "next/navigation";
 
 interface PackageCardProps {
   pkg: ResolvedPackage;
+  isAdmin?: boolean
 }
 
 const tierStyles = {
@@ -30,9 +32,10 @@ const tierStyles = {
   },
 };
 
-export function PackageCard({ pkg }: PackageCardProps) {
+export function PackageCard({ pkg, isAdmin }: PackageCardProps) {
   const style = tierStyles[pkg.tier];
   const isHighlighted = pkg.tier === "standard";
+  const router = useRouter()
 
   return (
     <div
@@ -81,14 +84,25 @@ export function PackageCard({ pkg }: PackageCardProps) {
         </ul>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Link href={`/extra-services?package=${pkg.id}`}>
-          <Button className="w-full">เลือกแพ็คเกจนี้</Button>
-        </Link>
-        <Link href={`/customize?package=${pkg.id}`}>
-          <Button className="w-full">ปรับแต่งแพ็คเกจ</Button>
-        </Link>
-      </div>
+      {isAdmin === undefined ?
+        <div className="flex flex-col gap-2">
+          <Link href={`/extra-services?package=${pkg.id}`}>
+            <Button className="w-full">เลือกแพ็คเกจนี้</Button>
+          </Link>
+          <Link href={`/customize?package=${pkg.id}`}>
+            <Button className="w-full">ปรับแต่งแพ็คเกจ</Button>
+          </Link>
+        </div>
+        :
+        <Button type="text" className="border! border-gray-500!"
+          onClick={() => {
+            router.push(`package/${pkg.id}`)
+          }}>
+          <Pencil size={18} />
+          แก้ไข
+        </Button>
+
+      }
     </div>
   );
 }

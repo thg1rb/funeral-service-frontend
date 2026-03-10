@@ -10,9 +10,11 @@ export const getDecorationItem = (category: ItemCategory, partnerId: string): De
   } else {
     localStorage.setItem(DECORATE_KEY, JSON.stringify(INITIAL_DECORATION_ITEMS))
   }
-  console.log(result)
   result = result.filter((element) => element.deletedAt === null)
-  console.log(result)
+
+  if (partnerId === "") {
+    return result.filter((element) => element.category === category)
+  }
 
   return filterPartnersByTypeAndPartnerId(category, result, partnerId)
 }

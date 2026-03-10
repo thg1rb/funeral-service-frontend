@@ -22,13 +22,14 @@ interface Props {
 export default function PartnerItemsSection({ params }: Props) {
   const [vender, setVender] = useState<Partner | undefined>()
   const [items, setItems] = useState<DecorationItem[]>([])
+
   const [currentTab, setCurrentTab] = useState<ItemCategory>("coffin")
-  const [modalItem, setModalItem] = useState<DecorationItem | undefined>(undefined)
-  const router = useRouter()
-  // const [modalPartner, setModalPartner] = useState<Partner | undefined>(undefined)
   const tabList: ItemCategory[] = [
     "coffin", "flowers", "backdrop", "table", "equipment"
   ]
+  const [modalItem, setModalItem] = useState<DecorationItem | undefined>(undefined)
+
+  const router = useRouter()
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

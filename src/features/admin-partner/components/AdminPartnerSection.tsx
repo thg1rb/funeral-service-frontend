@@ -12,8 +12,8 @@ import { PartnerType } from "../types/enum"
 export default function AdminPartnerSection() {
   const [partners, setPartners] = useState<Partner[]>([])
   const [currentTab, setCurrentTab] = useState(0)
-  const [modalPartner, setModalPartner] = useState<Partner | undefined>(undefined)
   const tabList: PartnerType[] = [PartnerType.ALL, PartnerType.SHOP, PartnerType.AVENUE]
+  const [modalPartner, setModalPartner] = useState<Partner | undefined>(undefined)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

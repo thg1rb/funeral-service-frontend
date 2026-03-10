@@ -17,6 +17,7 @@ const adminLink = [
   { href: "/admin/orders", label: "ออเดอร์" },
   { href: "/admin/partners", label: "พาร์ทเนอร์" },
   { href: "/admin/extra-service", label: "บริการเสริม" },
+  { href: "/admin/package", label: "แพคเกจ" },
   { href: "/admin/blogs", label: "บทความ" },
 ]
 
