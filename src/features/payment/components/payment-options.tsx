@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from 'uuid';
 import {
   CreditCard,
   Building2,
@@ -17,6 +18,8 @@ import { formatPrice } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
 import { Button } from "antd";
 import { useOrder } from "@/src/hooks/order-context";
+import { OrderCreate } from "../../admin-order/types/order";
+import { createOrder } from "../../admin-order/services/create-order";
 
 
 interface PaymentOption {
@@ -61,6 +64,25 @@ export function PaymentOptions() {
   );
   const [isProcessing, setIsProcessing] = useState(false);
 
+  const handleCreateOrder = () => {
+    if (selectedMethod === null) {
+      return
+    }
+    const newOrder: OrderCreate = {
+      orderId: uuidv4(),
+      customerDetails: order.customerDetails,
+      endDate: order.endDate,
+      extraServices: order.extraServices,
+      funeralType: order.funeralType,
+      items: order.items,
+      paymentMethod: selectedMethod,
+      startDate: order.startDate,
+      totalPrice: order.totalPrice,
+      vanue: order.venue,
+    }
+    createOrder(newOrder)
+  }
+
   const handlePay = () => {
     if (!selectedMethod) return;
     // Save payment method to order context
@@ -70,6 +92,7 @@ export function PaymentOptions() {
       // Log the complete order when payment is completed
       // Include payment method directly since state update is async
       console.log("=== ORDER COMPLETED ===");
+      handleCreateOrder()
       console.log("Order:", { ...order, paymentMethod: selectedMethod });
       console.log("=====================");
       router.push("/completed");

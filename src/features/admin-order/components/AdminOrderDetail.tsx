@@ -1,32 +1,34 @@
 "use client"
 import { formatPrice } from "@/src/utils/format";
-import { Button, Card, Descriptions, Table, Tag, Divider, Space } from "antd";
-import { ArrowLeft, Printer, MapPin, Phone, Mail, Clock, Package, PlusCircle, User } from "lucide-react";
+import { Button, Card, Descriptions, Table, Tag, Divider, Space, Skeleton } from "antd";
+import { ArrowLeft, Printer, MapPin, Phone, Clock, Package, PlusCircle, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react"; // เพิ่ม use
 import { getOrderById } from "../services/get-orders";
 import { Order } from "../types/order";
 
-// สมมติว่ารับ data มาจาก Mock หรือ API
-
-export default function AdminOrderDetailPage({ params }: { params: { id: string } }) {
-  const [order, setOrder] = useState<Order | undefined>()
+export default function AdminOrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  // 1. Unwrap params ตามมาตรฐาน Next.js 15
+  const { id } = use(params);
+  
+  const [order, setOrder] = useState<Order | undefined>();
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
-  const fetchOrderById = async () => {
-    const { id } = await params
-    const res = getOrderById(id)
-    setOrder(res)
+  useEffect(() => {
+    setIsClient(true);
+    const res = getOrderById(id);
+    setOrder(res);
+  }, [id]);
+
+  // ถ้ายังไม่โหลด หรือยังไม่อยู่บน Client ให้โชว์ Skeleton ป้องกัน Hydration Error
+  if (!isClient || !order) {
+    return <div className="p-8"><Skeleton active /></div>;
   }
 
-  useEffect(() => {
-    fetchOrderById()
-  }, [])
-
-
   return (
-    <div className="p-8  min-h-screen">
+    <div className="p-8 min-h-screen">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
         <Space size="middle">
@@ -37,12 +39,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
           >
             ย้อนกลับ
           </Button>
-          <div>
-            <h1 className="text-2xl font-bold m-0 flex items-center gap-3">
-              ออเดอร์ {order?.orderId}
-
-            </h1>
-          </div>
+          <h1 className="text-2xl font-bold m-0">ออเดอร์ {order.orderId}</h1>
         </Space>
 
         <Button icon={<Printer size={18} />} className="flex items-center gap-2">
@@ -51,35 +48,44 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        {/* Left Column: รายการสินค้าและบริการ (70%) */}
+        {/* Left Column */}
         <div className="lg:col-span-2 flex flex-col gap-6">
-
-          {/* Main Items Table */}
-          <Card title={<div className="flex items-center gap-2"><Package size={18} /> รายการสินค้าหลัก</div>} className="shadow-sm">
+          <Card title={<div className="flex items-center gap-2"><Package size={18} /> รายการสินค้าหลัก</div>}>
             <Table
-              dataSource={order?.items}
+              dataSource={order.items}
               pagination={false}
-              rowKey="id"
+              rowKey={(record) => record.item.id} // 2. แก้ key ให้แน่นอน
               columns={[
                 {
-                  title: 'สินค้า', dataIndex: 'name', key: 'name', render: (text, rec) => (
+                  title: 'สินค้า', 
+                  dataIndex: 'name', 
+                  key: 'name', 
+                  render: (_, rec) => (
                     <div>
-                      <p className="font-medium m-0">{text}</p>
-                      <p className="text-xs text-muted-foreground m-0">{rec.vendor}</p>
+                      <p className="font-medium m-0">{rec.item.name}</p>
+                      <p className="text-xs text-muted-foreground m-0">{rec.item.vendor}</p>
                     </div>
                   )
                 },
-                { title: 'หมวดหมู่', dataIndex: 'category', key: 'category', render: (cat) => <Tag>{cat}</Tag> },
-                { title: 'ราคา', dataIndex: 'price', key: 'price', align: 'right', render: (p) => formatPrice(p) },
+                { 
+                  title: 'หมวดหมู่', 
+                  dataIndex: ['item', 'category'], // เข้าถึง nested object
+                  key: 'category', 
+                  render: (cat) => <Tag>{cat}</Tag> 
+                },
+                { 
+                  title: 'ราคา', 
+                  key: 'price', 
+                  align: 'right', 
+                  render: (_, rec) => formatPrice(rec.item.price) 
+                },
               ]}
             />
           </Card>
 
-          {/* Extra Services Table */}
-          <Card title={<div className="flex items-center gap-2"><PlusCircle size={18} /> บริการเสริม</div>} className="shadow-sm">
+          <Card title={<div className="flex items-center gap-2"><PlusCircle size={18} /> บริการเสริม</div>}>
             <Table
-              dataSource={order?.extraServices}
+              dataSource={order.extraServices}
               pagination={false}
               rowKey="id"
               columns={[
@@ -91,61 +97,48 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
           </Card>
         </div>
 
-        {/* Right Column: สรุปข้อมูล (30%) */}
+        {/* Right Column */}
         <div className="flex flex-col gap-6">
-
-          {/* Customer & Venue Info */}
           <Card title="ข้อมูลการจัดงาน" className="shadow-sm">
             <Descriptions column={1} size="small">
               <Descriptions.Item label={<UserIcon />}>
-                <span className="font-semibold">{order?.customerDetails.name}</span>
+                <span className="font-semibold">{order.customerDetails.name}</span>
               </Descriptions.Item>
               <Descriptions.Item label={<PhoneIcon />}>
-                {order?.customerDetails.phone}
+                {order.customerDetails.phone}
               </Descriptions.Item>
               <Descriptions.Item label={<MapIcon />}>
-                <span className="text-primary font-medium">{order?.vanue.name}</span>
+                {/* 3. เช็คการสะกด vanue -> venue */}
+                <span className="text-primary font-medium">{order.vanue?.name}</span>
               </Descriptions.Item>
               <Descriptions.Item label={<TimeIcon />}>
-                {dayjs(order?.startDate).format('D MMM BB')} - {dayjs(order?.endDate).format('D MMM BB')}
+                {/* 4. Render วันที่ปลอดภัยเพราะผ่าน isClient แล้ว */}
+                {dayjs(order.startDate).format('D MMM YYYY')} - {dayjs(order.endDate).format('D MMM YYYY')}
               </Descriptions.Item>
             </Descriptions>
             <Divider className="my-3" />
             <p className="text-xs text-muted-foreground">
-              <MapPin size={12} className="inline mr-1" /> {order?.vanue.address}
+              <MapPin size={12} className="inline mr-1" /> {order.vanue?.address}
             </p>
           </Card>
 
-          {/* Payment Summary */}
           <Card className="shadow-sm bg-primary text-white border-none">
             <p className="m-0 opacity-80">ยอดชำระสุทธิ</p>
-            <h2 className="text-3xl font-bold m-0 mt-1">
-              {formatPrice(order === undefined ? 0 : order.totalPrice)}
+            <h2 className="text-3xl font-bold m-0 mt-1 text-white">
+              {formatPrice(order.totalPrice)}
             </h2>
             <Divider className="bg-white/20 my-4" />
             <div className="flex justify-between items-center opacity-90">
               <span>วิธีชำระเงิน</span>
-              <span className="font-medium uppercase">{order?.paymentMethod}</span>
+              <span className="font-medium uppercase">{order.paymentMethod}</span>
             </div>
           </Card>
-
-          {/* Actions */}
-          {/* <div className="flex flex-col gap-2">
-            <Button type="primary" size="large" className="w-full bg-green-600 hover:bg-green-500! border-none">
-              ยืนยันการดำเนินงาน
-            </Button>
-            <Button size="large" danger className="w-full">
-              ยกเลิกออเดอร์นี้
-            </Button>
-          </div> */}
         </div>
-
       </div>
     </div>
   );
 }
 
-// Small Icons for Descriptions
 const UserIcon = () => <User size={14} className="text-muted-foreground mr-2" />;
 const PhoneIcon = () => <Phone size={14} className="text-muted-foreground mr-2" />;
 const MapIcon = () => <MapPin size={14} className="text-muted-foreground mr-2" />;

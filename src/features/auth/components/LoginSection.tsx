@@ -22,7 +22,7 @@ export default function LoginSection() {
   const onSubmit = async (data: IFormInput) => {
     const pass = await login(data.username, data.password)
     if (pass) {
-      window.location.href = '/admin'
+      window.location.href = '/admin/orders'
     } else {
       messageApi.error('เข้าสู่ระบบไม่สำเร็จ ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด')
     }

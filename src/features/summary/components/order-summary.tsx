@@ -22,7 +22,6 @@ import { diffDays, formatDate, formatPrice } from "@/src/utils/format"
 export function OrderSummary() {
   const { order } = useOrder()
   const {
-    packageName,
     items,
     extraServices,
     venue,
@@ -47,12 +46,12 @@ export function OrderSummary() {
   return (
     <div className="mt-10">
       {/* Package badge */}
-      {packageName && (
+      {/* {packageName && (
         <div className="mb-6 flex items-center gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4">
           <Package className="h-5 w-5 shrink-0 text-primary" />
           <p className="text-sm font-semibold text-foreground">{packageName}</p>
         </div>
-      )}
+      )} */}
 
       {/* Items by category */}
       {Object.keys(groupedItems).length > 0 && (

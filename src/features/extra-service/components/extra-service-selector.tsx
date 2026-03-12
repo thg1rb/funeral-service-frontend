@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { useEffect } from "react"
+import { useEffect, useState } from "react" // เพิ่ม useState
 import {
   Camera,
   Car,
@@ -39,6 +39,9 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 export function ExtraServicesSelector() {
+  // 1. เพิ่ม state เพื่อเช็คว่าโหลดที่ฝั่ง Client หรือยัง
+  const [isClient, setIsClient] = useState(false)
+  
   const searchParams = useSearchParams()
   const packageId = searchParams.get("package")
   const custom = searchParams.get("custom")
@@ -48,12 +51,14 @@ export function ExtraServicesSelector() {
 
   // Initialize extra service
   useEffect(() => {
+    // 2. ตั้งค่าเป็น true เมื่อ Component ทำงานที่ Browser
+    setIsClient(true)
     extraService.init()
   }, [])
 
-  // Load package items when navigating from package selection
+  // Load package items
   useEffect(() => {
-    if (packageId && items.length === 0) {
+    if (isClient && packageId && items.length === 0) {
       const pkg = packageService.getById(packageId)
       if (pkg) {
         const packageItems = pkg.items.map((item) => ({ item, quantity: 1 }))
@@ -61,12 +66,16 @@ export function ExtraServicesSelector() {
         setPackageName(pkg.name)
       }
     }
-  }, [packageId, items.length, setItems, setPackageName])
+  }, [packageId, items.length, setItems, setPackageName, isClient])
 
-  // Show only services for the current funeral type (human or pet), plus "both"
+  // 3. ถ้ายังไม่เป็น Client ให้ Return null หรือ Loading (เพื่อความสมบูรณ์ของ Hydration)
+  if (!isClient) {
+    return <div className="mt-10 min-h-[400px] flex items-center justify-center text-muted-foreground">กำลังโหลดบริการ...</div>
+  }
+
+  // --- Logic ทั้งหมดจะทำงานหลังจากเป็น Client แล้วเท่านั้น ---
   const filtered = extraService.getByFuneralType(funeralType)
 
-  // Remove any stale selections that belong to the wrong type
   const validSelectedServices = selectedServices.filter(
     (s) => s.funeralType === funeralType || s.funeralType === "both"
   )
@@ -83,17 +92,14 @@ export function ExtraServicesSelector() {
       : "/locations"
 
   const backHref = packageId ? "/packages" : "/customize"
-
   const typeLabel = funeralType === "pet" ? "งานอำลาสัตว์เลี้ยง" : "งานศพ"
 
   return (
     <div className="mt-10">
-      {/* Type badge */}
       <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
         บริการเสริมสำหรับ{typeLabel}
       </div>
 
-      {/* Service grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((service) => {
           const selected = isSelected(service)
@@ -117,18 +123,13 @@ export function ExtraServicesSelector() {
                 </div>
               )}
 
-              <div
-                className={cn(
+              <div className={cn(
                   "mb-4 flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
                   selected ? "bg-primary/15" : "bg-muted group-hover:bg-primary/10"
-                )}
-              >
-                <Icon
-                  className={cn(
+                )}>
+                <Icon className={cn(
                     "h-6 w-6 transition-colors",
-                    selected
-                      ? "text-primary"
-                      : "text-muted-foreground group-hover:text-primary"
+                    selected ? "text-primary" : "text-muted-foreground group-hover:text-primary"
                   )}
                 />
               </div>
@@ -142,19 +143,11 @@ export function ExtraServicesSelector() {
                 <span className="text-sm font-bold text-primary">
                   {formatPrice(service.price)}
                 </span>
-                <div
-                  className={cn(
+                <div className={cn(
                     "flex h-7 w-7 items-center justify-center rounded-full transition-colors",
-                    selected
-                      ? "btn-gold"
-                      : "bg-muted text-muted-foreground group-hover:bg-accent"
-                  )}
-                >
-                  {selected ? (
-                    <Check className="h-4 w-4" />
-                  ) : (
-                    <Plus className="h-4 w-4" />
-                  )}
+                    selected ? "btn-gold" : "bg-muted text-muted-foreground group-hover:bg-accent"
+                  )}>
+                  {selected ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                 </div>
               </div>
             </button>
@@ -162,7 +155,6 @@ export function ExtraServicesSelector() {
         })}
       </div>
 
-      {/* Footer bar */}
       <div className="mt-10 flex flex-col gap-4 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           {validSelectedServices.length > 0 ? (
@@ -176,9 +168,7 @@ export function ExtraServicesSelector() {
               </p>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">
-              ข้ามขั้นตอนนี้ได้หากไม่ต้องการบริการเสริม
-            </p>
+            <p className="text-sm text-muted-foreground">ข้ามขั้นตอนนี้ได้หากไม่ต้องการบริการเสริม</p>
           )}
         </div>
         <div className="flex gap-3">

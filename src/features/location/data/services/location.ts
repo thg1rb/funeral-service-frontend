@@ -1,6 +1,6 @@
-import type { FuneralVenue } from "@/src/features/location/types/location";
 import { storageService } from "@/src/data/services/storageService";
 import { INITIAL_LOCATIONS } from "../locations";
+import { Partner } from "@/src/features/admin-partner/types/partner";
 
 const KEY = "funeral_venues";
 
@@ -22,6 +22,6 @@ export const locationService = {
     return locations.find((location) => location.id === id);
   },
 
-  update: (updatedItems: FuneralVenue[]): void =>
+  update: (updatedItems: Partner[]): void =>
     storageService.set(KEY, updatedItems),
 };

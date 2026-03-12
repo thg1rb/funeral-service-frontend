@@ -1,32 +1,41 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { VenueCard } from "./venue-card";
 import { useOrder } from "@/src/hooks/order-context";
 import { locationService } from "@/src/features/location/data/services/location";
 
 export function LocationList() {
   const [selectedVenueId, setSelectedVenueId] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const { setVenue } = useOrder();
 
-  // Initialize location service
   useEffect(() => {
     locationService.init();
+    setIsClient(true);
   }, []);
 
-  // Save selected venue to order context
-  useEffect(() => {
-    if (selectedVenueId) {
-      const venue = locationService.getById(selectedVenueId);
-      if (venue) {
-        setVenue(venue);
-      }
-    }
-  }, [selectedVenueId, setVenue]);
+  // สร้างข้อมูลที่มีการสุ่มระยะทางจำลองไว้ในตัวแปร
+  const venuesWithMeta = useMemo(() => {
+    return locationService.getAll().map((venue) => ({
+      ...venue,
+      // จำลองการคำนวณระยะทางสุ่ม 1-100
+      simulatedDistance: Math.floor(Math.random() * 100) + 1,
+    }));
+  }, [isClient]); // สุ่มใหม่เฉพาะตอนโหลดหน้าครั้งแรกฝั่ง Client
 
-  const sortedVenues = [...locationService.getAll()].sort(
-    (a, b) => a.distance - b.distance,
-  );
+  // เรียงลำดับตามระยะทางที่สุ่มได้
+  const sortedVenues = useMemo(() => {
+    return [...venuesWithMeta].sort((a, b) => a.simulatedDistance - b.simulatedDistance);
+  }, [venuesWithMeta]);
+
+  const handleSelect = (venue: any) => {
+    setSelectedVenueId(venue.id);
+    // ส่งข้อมูล venue พร้อม distance เข้าไปใน Context เพื่อใช้ในหน้าถัดไป
+    setVenue({ ...venue, distance: venue.simulatedDistance });
+  };
+
+  if (!isClient) return null;
 
   return (
     <div className="mt-10">
@@ -35,8 +44,10 @@ export function LocationList() {
           <VenueCard
             key={venue.id}
             venue={venue}
+            // ส่งค่าที่สุ่มได้จาก parent ลงไป
+            distance={venue.simulatedDistance} 
             isSelected={selectedVenueId === venue.id}
-            onSelect={() => setSelectedVenueId(venue.id)}
+            onSelect={() => handleSelect(venue)}
           />
         ))}
       </div>
