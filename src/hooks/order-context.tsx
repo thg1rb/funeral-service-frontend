@@ -10,23 +10,24 @@ import {
 import type {
   FuneralType,
   OrderSummary,
+  Partner,
 } from "@/src/types/types"
 import type { DecorationItem, SelectedItem } from "@/src/features/customize/types/customize"
 import type { ExtraService } from "@/src/features/extra-service/types/extra-service"
 import type { CustomerDetails } from "@/src/features/customer-details/types/customer-details"
 import type { PaymentMethod } from "@/src/features/payment/types/payment"
-import type { FuneralVenue } from "@/src/features/location/types/location"
 
 interface OrderContextType {
   order: OrderSummary
   setFuneralType: (type: FuneralType) => void
   setPackageName: (name: string | null) => void
+  setOrderId: (orderId: string | null) => void
   addItem: (item: DecorationItem) => void
   removeItem: (itemId: string) => void
   updateItemQuantity: (itemId: string, quantity: number) => void
   setItems: (items: SelectedItem[]) => void
   toggleExtraService: (service: ExtraService) => void
-  setVenue: (venue: FuneralVenue | null) => void
+  setVenue: (venue: Partner | null) => void
   setDateRange: (startDate: string | null, endDate: string | null) => void
   setCustomerDetails: (details: CustomerDetails) => void
   setPaymentMethod: (method: PaymentMethod) => void
@@ -34,6 +35,7 @@ interface OrderContextType {
 }
 
 const defaultOrder: OrderSummary = {
+  orderId: null,
   funeralType: "human",
   packageName: null,
   items: [],
@@ -63,6 +65,10 @@ export function OrderProvider({ children }: { children: ReactNode }) {
 
   const setPackageName = useCallback((name: string | null) => {
     setOrder((prev) => ({ ...prev, packageName: name }))
+  }, [])
+
+  const setOrderId = useCallback((orderId: string | null) => {
+    setOrder((prev) => ({ ...prev, orderId }))
   }, [])
 
   const addItem = useCallback((item: DecorationItem) => {
@@ -124,7 +130,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
-  const setVenue = useCallback((venue: FuneralVenue | null) => {
+  const setVenue = useCallback((venue: Partner | null) => {
     setOrder((prev) => ({ ...prev, venue }))
   }, [])
 
@@ -150,6 +156,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         order,
         setFuneralType,
         setPackageName,
+        setOrderId,
         addItem,
         removeItem,
         updateItemQuantity,

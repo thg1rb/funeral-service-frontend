@@ -59,7 +59,7 @@ const bankDetails = {
 
 export function PaymentOptions() {
   const router = useRouter();
-  const { order, setPaymentMethod } = useOrder();
+  const { order, setPaymentMethod, setOrderId } = useOrder();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod | null>(
     null,
   );
@@ -69,8 +69,14 @@ export function PaymentOptions() {
     if (selectedMethod === null) {
       return
     }
+    if (!order.customerDetails || !order.startDate || !order.endDate || !order.venue) {
+      console.error("Missing required order details");
+      return
+    }
+    const orderId = uuidv4()
+    setOrderId(orderId)
     const newOrder: OrderCreate = {
-      orderId: uuidv4(),
+      orderId,
       customerDetails: order.customerDetails,
       endDate: order.endDate,
       extraServices: order.extraServices,

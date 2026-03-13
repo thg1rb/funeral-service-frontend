@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   CheckCircle2,
   Phone,
   CalendarDays,
   MapPin,
-  Download,
   Home,
   Star,
 } from "lucide-react";
@@ -16,14 +14,8 @@ import { useOrder } from "@/src/hooks/order-context";
 import { diffDays, formatDate, formatPrice } from "@/src/utils/format";
 
 export function Completed() {
-  const [bookingRef, setBookingRef] = useState<string>("");
-
-  useEffect(() => {
-    const ref = `SKR-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 89999)}`;
-    setBookingRef(ref);
-  }, []);
   const { order, resetOrder } = useOrder();
-  const { venue, startDate, endDate, totalPrice, extraServices } = order;
+  const { orderId, venue, startDate, endDate, totalPrice, extraServices } = order;
 
   const nights = startDate && endDate ? diffDays(startDate, endDate) - 1 : 0;
 
@@ -48,13 +40,13 @@ export function Completed() {
       </div>
 
       {/* Booking reference */}
-      {bookingRef && (
+      {orderId && (
         <div className="mb-6 rounded-lg border-2 border-primary/30 bg-card p-6">
           <p className="mb-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
             หมายเลขการจอง
           </p>
           <p className="font-mono text-2xl font-bold text-primary">
-            {bookingRef}
+            {orderId}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
             กรุณาเก็บหมายเลขนี้ไว้เพื่ออ้างอิงในการติดต่อ

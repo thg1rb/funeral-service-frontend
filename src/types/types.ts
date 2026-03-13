@@ -7,16 +7,20 @@ import type { SelectedItem } from "@/src/features/customize/types/customize";
 import type { ExtraService } from "@/src/features/extra-service/types/extra-service";
 import type { CustomerDetails } from "@/src/features/customer-details/types/customer-details";
 import type { PaymentMethod } from "@/src/features/payment/types/payment";
-import { Partner } from "../features/admin-partner/types/partner";
+import type { Partner } from "../features/admin-partner/types/partner";
+
+export { Partner };
 
 export interface OrderSummary {
+  orderId: string | null;
+  packageName: string | null;
   funeralType: FuneralType;
   items: SelectedItem[];
   extraServices: ExtraService[];
   totalPrice: number;
-  venue: Partner;
-  startDate: string;
-  endDate: string;
-  customerDetails: CustomerDetails;
-  paymentMethod: PaymentMethod;
+  venue: Partner | null;
+  startDate: string | null;
+  endDate: string | null;
+  customerDetails: CustomerDetails | null;
+  paymentMethod: PaymentMethod | null;
 }
