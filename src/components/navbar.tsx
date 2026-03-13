@@ -98,9 +98,9 @@ export function Navbar() {
             isAdmin ?
               <div>
                 <Button className="" onClick={() => {
-                  handleRedirect('/login')
                   logout()
-                  fetchIsAdmin()
+                  setIsAdmin(false)
+                  handleRedirect('/login')
                 }}>ออกจากระบบ</Button>
               </div>
               :
