@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { PenLine, BookOpen, Calendar, User } from "lucide-react";
-import { Button } from "antd";
+import { Button, Pagination } from "antd";
 import { formatDate } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
 import { BlogPost } from "../types/blog";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { isAdmin } from "@/src/utils/auth";
+
+const ITEMS_PER_PAGE = 6;
 
 const categories = ["ทั้งหมด", "ความรู้", "แนะนำ", "สุขภาพจิต", "สัตว์เลี้ยง"];
 
@@ -23,9 +25,26 @@ export function BlogList({
   onCategoryChange,
 }: BlogListProps) {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Reset pagination when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory]);
 
   useEffect(() => {
     setIsUserAdmin(isAdmin());
+  }, []);
+
+  // Pagination logic
+  const totalPosts = posts.length;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedPosts = posts.slice(startIndex, endIndex);
+
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
@@ -59,7 +78,7 @@ export function BlogList({
       </div>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {posts.map((post) => (
+        {paginatedPosts.map((post) => (
           <Link
             key={post.id}
             href={`/blogs/${post.id}`}
@@ -92,6 +111,19 @@ export function BlogList({
           </Link>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPosts > ITEMS_PER_PAGE && (
+        <div className="mt-6 flex justify-center">
+          <Pagination
+            current={currentPage}
+            pageSize={ITEMS_PER_PAGE}
+            total={totalPosts}
+            onChange={handlePageChange}
+            showSizeChanger={false}
+          />
+        </div>
+      )}
     </div>
   );
 }
