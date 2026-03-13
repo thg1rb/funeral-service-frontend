@@ -1,0 +1,1 @@
+export const BLOGS_KEY = "funeral_blogs";
