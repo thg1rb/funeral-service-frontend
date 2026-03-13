@@ -135,14 +135,14 @@ export function Completed() {
               href="tel:020000000"
               className="text-sm font-semibold text-primary hover:underline"
             >
-              02-000-0000
+              02-123-4567
             </a>
             <span className="text-muted-foreground">·</span>
             <a
               href="https://line.me"
               className="text-sm font-semibold text-primary hover:underline"
             >
-              LINE: @suksan-ritual
+              LINE: @funeral-plus
             </a>
           </div>
         </div>

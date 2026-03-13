@@ -289,15 +289,15 @@ export function PaymentOptions() {
           onClick={handlePay}
         >
           {isProcessing ? (
-            <>
+            <div className="flex flex-row justify-center items-center gap-2">
               <Loader2 className="h-4 w-4 animate-spin" />
               กำลังดำเนินการ...
-            </>
+            </div>
           ) : (
-            <>
+            <div className="flex flex-row justify-center items-center">
               ยืนยันการชำระเงิน
               <ChevronRight className="h-4 w-4" />
-            </>
+            </div>
           )}
         </Button>
       </div>
