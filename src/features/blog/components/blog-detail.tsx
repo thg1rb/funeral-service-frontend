@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
+import { ArrowLeft, Calendar, User, Tag, PenLine } from "lucide-react";
 import { Button } from "antd";
 import { formatDate } from "@/src/utils/format";
 import { BlogPost } from "../types/blog";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { isAdmin } from "@/src/utils/auth";
 
 interface BlogDetailProps {
   post: BlogPost;
@@ -11,14 +15,30 @@ interface BlogDetailProps {
 
 export function BlogDetail({ post }: BlogDetailProps) {
   const router = useRouter()
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsUserAdmin(isAdmin());
+  }, []);
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 lg:px-8">
-      <Button className="gap-2 mb-6" onClick={() => {
-        router.back()
-      }}>
-        <ArrowLeft className="h-4 w-4" />
-        กลับไปรายการบทความ
-      </Button>
+      <div className="flex items-center gap-4 mb-6">
+        <Button className="gap-2" onClick={() => {
+          router.back()
+        }}>
+          <ArrowLeft className="h-4 w-4" />
+          กลับไปรายการบทความ
+        </Button>
+        {isUserAdmin && (
+          <Link href={`/admin/blogs/${post.id}`}>
+            <Button className="btn-gold! gap-2 bg-transparent">
+              <PenLine className="h-4 w-4" />
+              แก้ไขบทความ
+            </Button>
+          </Link>
+        )}
+      </div>
 
       <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
         <span className="flex items-center gap-1.5">

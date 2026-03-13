@@ -6,6 +6,8 @@ import { Button } from "antd";
 import { formatDate } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
 import { BlogPost } from "../types/blog";
+import { useState, useEffect } from "react";
+import { isAdmin } from "@/src/utils/auth";
 
 const categories = ["ทั้งหมด", "ความรู้", "แนะนำ", "สุขภาพจิต", "สัตว์เลี้ยง"];
 
@@ -20,6 +22,12 @@ export function BlogList({
   activeCategory,
   onCategoryChange,
 }: BlogListProps) {
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsUserAdmin(isAdmin());
+  }, []);
+
   return (
     <div className="mt-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -40,12 +48,14 @@ export function BlogList({
             </button>
           ))}
         </div>
-        <Link href="/blog/create">
-          <Button className="btn-gold! gap-2 bg-transparent">
-            <PenLine className="h-4 w-4" />
-            เขียนบทความ
-          </Button>
-        </Link>
+        {isUserAdmin && (
+          <Link href="/blog/create">
+            <Button className="btn-gold! gap-2 bg-transparent">
+              <PenLine className="h-4 w-4" />
+              เขียนบทความ
+            </Button>
+          </Link>
+        )}
       </div>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
