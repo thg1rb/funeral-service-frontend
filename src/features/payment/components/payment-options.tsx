@@ -20,6 +20,7 @@ import { Button } from "antd";
 import { useOrder } from "@/src/hooks/order-context";
 import { OrderCreate } from "../../admin-order/types/order";
 import { createOrder } from "../../admin-order/services/create-order";
+import { OrderStatus } from "../../admin-order/types/enums";
 
 
 interface PaymentOption {
@@ -79,6 +80,7 @@ export function PaymentOptions() {
       startDate: order.startDate,
       totalPrice: order.totalPrice,
       vanue: order.venue,
+      status: OrderStatus.PENDING,
     }
     createOrder(newOrder)
   }

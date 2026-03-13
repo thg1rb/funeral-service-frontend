@@ -1,14 +1,10 @@
+import { OrderStatus } from "../types/enums";
 import { Order } from "../types/order";
-
-// ตัวอย่างโครงสร้าง SelectedItem ที่คุณระบุ
-// export interface SelectedItem {
-//   item: DecorationItem;
-//   quantity: number;
-// }
 
 export const INITIAL_ORDERS: (Order & { orderId: string })[] = [
   {
-    orderId: "550e8400-e29b-41d4-a716-446655440000", // เปลี่ยนเป็น UUID
+    orderId: "550e8400-e29b-41d4-a716-446655440000",
+    status: OrderStatus.INPROGRESS, // เพิ่มสถานะ
     customerDetails: {
       name: "คุณสมชาย รักดี",
       phone: "081-234-5678",
@@ -43,42 +39,42 @@ export const INITIAL_ORDERS: (Order & { orderId: string })[] = [
         deletedAt: null,
       },
     ],
-    // ปรับ items ให้เป็นโครงสร้าง { item: DecorationItem, quantity: number }
     items: [
       {
         quantity: 1,
-        item: { 
-          partnerId: "p-01", 
-          id: "mf-01", 
-          name: "จัดดอกไม้หน้าศพ ชุดนกยูงคู่บารมี", 
-          category: "flowers", 
-          price: 25000, 
-          image: "https://picsum.photos/200?sig=1", 
-          vendor: "ร้านดอกไม้ประดับศพ มนตรีฟลาวเวอร์", 
-          description: "ดอกไม้สดคัดพิเศษ จัดทรงนกยูงรำแพน 2 ตัว", 
-          deletedAt: null, 
-          maxQuantity: 2 
+        item: {
+          partnerId: "p-01",
+          id: "mf-01",
+          name: "จัดดอกไม้หน้าศพ ชุดนกยูงคู่บารมี",
+          category: "flowers",
+          price: 25000,
+          image: "https://picsum.photos/200?sig=1",
+          vendor: "ร้านดอกไม้ประดับศพ มนตรีฟลาวเวอร์",
+          description: "ดอกไม้สดคัดพิเศษ จัดทรงนกยูงรำแพน 2 ตัว",
+          deletedAt: null,
+          maxQuantity: 2
         }
       },
       {
         quantity: 1,
-        item: { 
-          partnerId: "p-02", 
-          id: "sy-01", 
-          name: "หีบศพไม้สักทอง แกะสลักลายไทย", 
-          category: "coffin", 
-          price: 45000, 
-          image: "https://picsum.photos/200?sig=21", 
-          vendor: "สุริยาหีบศพ", 
-          description: "ไม้สักแท้เกรดพรีเมียม", 
-          deletedAt: null, 
-          maxQuantity: 3 
+        item: {
+          partnerId: "p-02",
+          id: "sy-01",
+          name: "หีบศพไม้สักทอง แกะสลักลายไทย",
+          category: "coffin",
+          price: 45000,
+          image: "https://picsum.photos/200?sig=21",
+          vendor: "สุริยาหีบศพ",
+          description: "ไม้สักแท้เกรดพรีเมียม",
+          deletedAt: null,
+          maxQuantity: 3
         }
       }
     ],
   },
   {
-    orderId: "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d", // UUID
+    orderId: "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+    status: OrderStatus.PENDING, // เพิ่มสถานะ
     customerDetails: {
       name: "คุณวิภาวี ใจบุญ",
       phone: "092-888-9999",
@@ -104,24 +100,25 @@ export const INITIAL_ORDERS: (Order & { orderId: string })[] = [
     extraServices: [],
     items: [
       {
-        quantity: 2, // ระบุจำนวน
-        item: { 
-          partnerId: "p-01", 
-          id: "mf-02", 
-          name: "พวงหรีดดอกไม้สด โทนขาว-เขียว", 
-          category: "flowers", 
-          price: 2500, 
-          image: "https://picsum.photos/200?sig=2", 
-          vendor: "ร้านดอกไม้ประดับศพ มนตรีฟลาวเวอร์", 
-          description: "ดอกไม้สีขาว จัดทรงกลม", 
-          deletedAt: null, 
-          maxQuantity: 20 
+        quantity: 2,
+        item: {
+          partnerId: "p-01",
+          id: "mf-02",
+          name: "พวงหรีดดอกไม้สด โทนขาว-เขียว",
+          category: "flowers",
+          price: 2500,
+          image: "https://picsum.photos/200?sig=2",
+          vendor: "ร้านดอกไม้ประดับศพ มนตรีฟลาวเวอร์",
+          description: "ดอกไม้สีขาว จัดทรงกลม",
+          deletedAt: null,
+          maxQuantity: 20
         }
       }
     ],
   },
   {
-    orderId: "f9e8d7c6-b5a4-4321-abcd-ef0987654321", // UUID
+    orderId: "f9e8d7c6-b5a4-4321-abcd-ef0987654321",
+    status: OrderStatus.COMPLETE, // เพิ่มสถานะ
     customerDetails: {
       name: "คุณมานะ กล้าหาญ",
       phone: "085-111-2233",
@@ -146,18 +143,18 @@ export const INITIAL_ORDERS: (Order & { orderId: string })[] = [
     extraServices: [],
     items: [
       {
-        quantity: 100, // ระบุจำนวน (Snack Box)
-        item: { 
-          partnerId: "p-03", 
-          id: "rn-01", 
-          name: "Snack Box ชุดอิ่มท้อง (3 ชิ้น)", 
-          category: "equipment", 
-          price: 65, 
-          image: "https://picsum.photos/200?sig=41", 
-          vendor: "ร้านอาหารรสนิยม", 
-          description: "เบเกอรี่อบสด 2 ชิ้น + น้ำผลไม้ 1 กล่อง", 
-          deletedAt: null, 
-          maxQuantity: 300 
+        quantity: 100,
+        item: {
+          partnerId: "p-03",
+          id: "rn-01",
+          name: "Snack Box ชุดอิ่มท้อง (3 ชิ้น)",
+          category: "equipment",
+          price: 65,
+          image: "https://picsum.photos/200?sig=41",
+          vendor: "ร้านอาหารรสนิยม",
+          description: "เบเกอรี่อบสด 2 ชิ้น + นำผลไม้ 1 กล่อง",
+          deletedAt: null,
+          maxQuantity: 300
         }
       }
     ],
