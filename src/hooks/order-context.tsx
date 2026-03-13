@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   type ReactNode,
 } from "react"
 import type {
@@ -16,6 +17,8 @@ import type { DecorationItem, SelectedItem } from "@/src/features/customize/type
 import type { ExtraService } from "@/src/features/extra-service/types/extra-service"
 import type { CustomerDetails } from "@/src/features/customer-details/types/customer-details"
 import type { PaymentMethod } from "@/src/features/payment/types/payment"
+
+const ORDER_KEY = "funeral_order"
 
 interface OrderContextType {
   order: OrderSummary
@@ -57,7 +60,25 @@ function calcTotal(items: SelectedItem[], extraServices: ExtraService[]): number
 }
 
 export function OrderProvider({ children }: { children: ReactNode }) {
-  const [order, setOrder] = useState<OrderSummary>(defaultOrder)
+  const [order, setOrder] = useState<OrderSummary>(() => {
+    // Load order from localStorage on mount
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(ORDER_KEY)
+      if (stored) {
+        try {
+          return JSON.parse(stored)
+        } catch {
+          return defaultOrder
+        }
+      }
+    }
+    return defaultOrder
+  })
+
+  // Save order to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(ORDER_KEY, JSON.stringify(order))
+  }, [order])
 
   const setFuneralType = useCallback((type: FuneralType) => {
     setOrder((prev) => ({ ...prev, funeralType: type }))
@@ -147,6 +168,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const resetOrder = useCallback(() => {
+    localStorage.removeItem(ORDER_KEY)
     setOrder(defaultOrder)
   }, [])
 

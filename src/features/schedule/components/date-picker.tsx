@@ -1,9 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { CalendarDays, Check, AlertCircle, ArrowRight } from "lucide-react"
-import Link from "next/link"
 import { DatePicker as AntDatePicker, Button } from "antd"
 import dayjs, { Dayjs } from "dayjs"
 import { useOrder } from "@/src/hooks/order-context"
@@ -15,6 +14,7 @@ const { RangePicker } = AntDatePicker
 
 export function DatePicker() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const venueId = searchParams.get("venue")
   const { setDateRange, setVenue, order } = useOrder()
   const [dates, setDates] = useState<[Dayjs, Dayjs] | null>(null)
@@ -69,10 +69,16 @@ export function DatePicker() {
 
   const handleConfirm = () => {
     if (isComplete && startDate && endDate) {
-      setDateRange(
-        startDate.format("YYYY-MM-DD"),
-        endDate.format("YYYY-MM-DD")
-      )
+      const startDateStr = startDate.format("YYYY-MM-DD")
+      const endDateStr = endDate.format("YYYY-MM-DD")
+
+      // Save to order context
+      setDateRange(startDateStr, endDateStr)
+
+      // Add to booked dates (simulate other users' bookings)
+      scheduleService.addBookedDates(startDateStr, endDateStr)
+
+      router.push("/customer-details")
     }
   }
 
@@ -173,12 +179,10 @@ export function DatePicker() {
               )}
 
               {isComplete && (
-                <Link href="/customer-details" onClick={handleConfirm}>
-                  <Button className="mt-2 w-full gap-2">
-                    ยืนยันช่วงเวลา
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
+                <Button className="mt-2 w-full gap-2" onClick={handleConfirm}>
+                  ยืนยันช่วงเวลา
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
               )}
             </div>
           ) : (
