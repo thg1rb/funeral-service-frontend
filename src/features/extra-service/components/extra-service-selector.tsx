@@ -2,7 +2,8 @@
 
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { useEffect, useState } from "react" // เพิ่ม useState
+import { useEffect, useState, useCallback } from "react"
+import { Pagination } from "antd"
 import {
   Camera,
   Car,
@@ -38,10 +39,13 @@ const iconMap: Record<string, React.ElementType> = {
   sparkles: Sparkles,
 }
 
+const ITEMS_PER_PAGE = 6
+
 export function ExtraServicesSelector() {
   // 1. เพิ่ม state เพื่อเช็คว่าโหลดที่ฝั่ง Client หรือยัง
   const [isClient, setIsClient] = useState(false)
-  
+  const [currentPage, setCurrentPage] = useState(1)
+
   const searchParams = useSearchParams()
   const packageId = searchParams.get("package")
   const custom = searchParams.get("custom")
@@ -68,6 +72,12 @@ export function ExtraServicesSelector() {
     }
   }, [packageId, items.length, setItems, setPackageName, isClient])
 
+  // Handle page change - must be called before early return
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
+
   // 3. ถ้ายังไม่เป็น Client ให้ Return null หรือ Loading (เพื่อความสมบูรณ์ของ Hydration)
   if (!isClient) {
     return <div className="mt-10 min-h-[400px] flex items-center justify-center text-muted-foreground">กำลังโหลดบริการ...</div>
@@ -75,6 +85,12 @@ export function ExtraServicesSelector() {
 
   // --- Logic ทั้งหมดจะทำงานหลังจากเป็น Client แล้วเท่านั้น ---
   const filtered = extraService.getByFuneralType(funeralType)
+
+  // Pagination logic
+  const totalServices = filtered.length
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
+  const paginatedServices = filtered.slice(startIndex, endIndex)
 
   const validSelectedServices = selectedServices.filter(
     (s) => s.funeralType === funeralType || s.funeralType === "both"
@@ -95,13 +111,13 @@ export function ExtraServicesSelector() {
   const typeLabel = funeralType === "pet" ? "งานอำลาสัตว์เลี้ยง" : "งานศพ"
 
   return (
-    <div className="mt-10">
-      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+    <div className="mt-10 flex flex-col gap-2">
+      <div className="mb-6 w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
         บริการเสริมสำหรับ{typeLabel}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((service) => {
+        {paginatedServices.map((service) => {
           const selected = isSelected(service)
           const Icon = iconMap[service.icon] ?? Gift
 
@@ -154,6 +170,19 @@ export function ExtraServicesSelector() {
           )
         })}
       </div>
+
+      {/* Pagination */}
+      {totalServices > ITEMS_PER_PAGE && (
+        <div className="flex justify-center">
+          <Pagination
+            current={currentPage}
+            pageSize={ITEMS_PER_PAGE}
+            total={totalServices}
+            onChange={handlePageChange}
+            showSizeChanger={false}
+          />
+        </div>
+      )}
 
       <div className="mt-10 flex flex-col gap-4 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
