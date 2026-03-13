@@ -126,6 +126,7 @@ export function CustomBuilder() {
           selectedItems={selectedItems}
           onToggle={toggleItem}
           onUpdateQuantity={updateQuantity}
+          category={activeCategory}
         />
       </div>
 

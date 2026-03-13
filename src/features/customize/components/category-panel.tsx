@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import type { DecorationItem, SelectedItem } from "@/src/features/customize/types/customize";
 import { formatPrice } from "@/src/utils/format";
 import { cn } from "@/src/utils/utils";
@@ -11,17 +12,40 @@ interface CategoryPanelProps {
   selectedItems: SelectedItem[];
   onToggle: (item: DecorationItem) => void;
   onUpdateQuantity: (itemId: string, quantity: number) => void;
+  category: string;
 }
+
+const ITEMS_PER_PAGE = 6;
 
 export function CategoryPanel({
   items,
   selectedItems,
   onToggle,
   onUpdateQuantity,
+  category,
 }: CategoryPanelProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Reset pagination when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category]);
+
+  const totalItems = items.length;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedItems = items.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2">
-      {items.map((item) => {
+      {paginatedItems.map((item) => {
         const selectedEntry = selectedItems.find(
           (si) => si.item.id === item.id,
         );
@@ -137,8 +161,10 @@ export function CategoryPanel({
       <div className="col-span-2">
         <Pagination
           align="center"
-          defaultCurrent={1}
-          total={500} // TODO: Change from hard-coded
+          current={currentPage}
+          pageSize={ITEMS_PER_PAGE}
+          total={totalItems}
+          onChange={handlePageChange}
           showSizeChanger={false}
         />
       </div>
