@@ -91,9 +91,6 @@ export function Navbar() {
         </ul>
 
         <div className="hidden md:flex gap-3 ">
-          <div className="">
-            <Button className="btn-gold!">ติดต่อเรา</Button>
-          </div>
           {
             isAdmin ?
               <div>
@@ -127,37 +124,55 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      {
-        mobileOpen && (
-          <div className="border-t border-border bg-card md:hidden">
-            <ul className="flex flex-col gap-1 px-4 py-3">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                      pathname === link.href
-                        ? "bg-accent text-accent-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li className="pt-2">
-                <Button className="w-full btn-gold!">ติดต่อเรา</Button>
-              </li>
-              <li className="pt-2">
-                <Button className="w-full btn-gold!">เข้าสู่ระบบ</Button>
-              </li>
-            </ul>
-          </div>
-        )
-      }
+      {/* Mobile menu with slide animation */}
+      <div
+        className={cn(
+          "border-t border-border bg-card md:hidden overflow-hidden transition-all duration-300 ease-in-out",
+          mobileOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        )}
+      >
+        <ul className="flex flex-col gap-1 px-4 py-3">
+          {(!isAdmin ? navLinks : adminLink).map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  pathname === link.href
+                    ? "bg-accent text-accent-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                )}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+          <li className="pt-2">
+            {isAdmin ? (
+              <Button
+                className="w-full"
+                onClick={() => {
+                  logout();
+                  setIsAdmin(false);
+                  handleRedirect('/login');
+                }}
+              >
+                ออกจากระบบ
+              </Button>
+            ) : (
+              <Button
+                className="w-full btn-gold!"
+                onClick={() => {
+                  handleRedirect('/login');
+                }}
+              >
+                เข้าสู่ระบบ
+              </Button>
+            )}
+          </li>
+        </ul>
+      </div>
     </header >
   );
 }
