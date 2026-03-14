@@ -1,3 +1,5 @@
+"use client";
+
 import { StepIndicator } from "@/src/components/step-indication";
 import { LocationList } from "./components/location-list";
 
