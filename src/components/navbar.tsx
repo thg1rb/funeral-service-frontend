@@ -32,6 +32,7 @@ export function Navbar() {
   }
 
   const fetchIsAdmin = () => {
+    if (typeof window === 'undefined') return
     const session = localStorage.getItem('session')
     setIsAdmin(session !== null)
   }
