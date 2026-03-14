@@ -4,6 +4,12 @@ import { PartnerStatus, PartnerType } from "../types/enum"
 import { Partner } from "../types/partner"
 
 export const getPartners = (type: PartnerType): Partner[] => {
+  // Check if we're on the client side (localStorage is only available in browser)
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+    // Return empty array during SSR
+    return []
+  }
+
   const res = localStorage.getItem(KEY)
   let result = INITIAL_PARTNERS
   if (res !== null) {
